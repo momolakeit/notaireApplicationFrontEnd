@@ -1,4 +1,4 @@
-<mat-card class="example-card">
+<mat-card class="example-card mx-auto mt-5 w-75">
     <mat-card-header>
         <div class="mx-auto">
             <mat-card-title>Log in</mat-card-title>
@@ -7,65 +7,79 @@
     <mat-card-content>
         <form class="example-form">
             <div class="container" *ngIf="!isSignUp">
-                <div class="row">
-                    <div class="col">
+                <div class="row justify-content-center">
+                    <div class="col-4">
                         <mat-form-field class="example-full-width">
                             <mat-label>Username</mat-label>
                             <input name="emailAdress" [(ngModel)]="loginDTO.emailAdress" matInput>
                         </mat-form-field>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col">
+                <div class="row justify-content-center">
+                    <div class="col-4">
                         <mat-form-field class="example-full-width">
                             <mat-label>Password</mat-label>
-                            <input name="password" [(ngModel)]="loginDTO.password" type="password" matInput >
+                            <input name="password" [(ngModel)]="loginDTO.password" type="password" matInput>
                         </mat-form-field>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col">
+                <div class="row justify-content-center">
+                    <div class="col-4">
                         <a class="text-primary" (click)=setIsSignUp(true)>Sign Up</a>
                     </div>
                 </div>
             </div>
             <div class="container" *ngIf="isSignUp">
-                <div class="row">
-                    <div class="col">
+                <div class="row justify-content-center">
+                    <div class="col-4">
                         <mat-form-field class="example-full-width">
                             <mat-label>Prenom</mat-label>
                             <input name="emailAdress" [(ngModel)]="signUpDto.prenom" matInput>
                         </mat-form-field>
                     </div>
-                    <div class="col">
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-4">
                         <mat-form-field class="example-full-width">
                             <mat-label>Nom</mat-label>
                             <input name="emailAdress" [(ngModel)]="signUpDto.nom" matInput>
                         </mat-form-field>
                     </div>
-                    <div class="col">
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-4">
                         <mat-form-field class="example-full-width">
                             <mat-label>Username</mat-label>
                             <input name="emailAdress" [(ngModel)]="signUpDto.emailAdress" matInput>
                         </mat-form-field>
                     </div>
-                    <div class="col">
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-4">
                         <mat-form-field class="example-full-width">
                             <mat-label>Password</mat-label>
-                            <input name="password" [(ngModel)]="signUpDto.password" type="password" matInput >
+                            <input name="password" [(ngModel)]="signUpDto.password" type="password" matInput>
                         </mat-form-field>
                     </div>
                 </div>
             </div>
         </form>
     </mat-card-content>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <p class="text-danger">{{validationErrorMessage}}</p>
+            </div>
+        </div>
+    </div>
     <mat-card-actions>
-        <ng-container *ngIf="!isSignUp">
-            <button (click)="logIn()" mat-button>LOG IN</button>
-        </ng-container>
-        <ng-container *ngIf="isSignUp">
-            <button (click)="signUp()" mat-button>SIGN UP</button>
-        </ng-container>
+        <div class="container">
+            <div class="row">
+                <div class="col-4 ml-4">
+                    <button *ngIf="!isSignUp" (click)="logIn()" style="background-color:#7B1FA2;" mat-button>LOG IN</button>
+                    <button *ngIf="isSignUp" (click)="signUp()" style="background-color:#7B1FA2;" mat-button>SIGN UP</button>
+                </div>
+            </div>
+        </div>
     </mat-card-actions>
-    <p class="danger">{{validationErrorMessage}}</p>
 </mat-card>
