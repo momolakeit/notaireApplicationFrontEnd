@@ -10,23 +10,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthComponent implements OnInit {
 
-  constructor(private authService:AuthService) { }
-  loginDTO :LogInDTO={emailAdress:"",password:""};
-  signUpDto:SignUpDTO={emailAdress:"",password:"",nom:"",prenom:"",role:""}
-  isSignUp:false;
-  validationErrorMessage:string;
-  showValidationErrorMessage:boolean;
+  constructor(private authService: AuthService) { }
+  loginDTO: LogInDTO = { emailAdress: "", password: "" };
+  signUpDto: SignUpDTO = { emailAdress: "", password: "", nom: "", prenom: "", role: "client" }
+  isSignUp = false;
+  validationErrorMessage: string;
+  showValidationErrorMessage: boolean;
 
   ngOnInit(): void {
   }
-  
-  logIn():void{
-    this.authService.logIn(this.loginDTO.emailAdress,this.loginDTO.password).subscribe(
-      (jwtReponse)=>{
+
+  logIn(): void {
+    this.authService.logIn(this.loginDTO).subscribe(
+      (jwtReponse) => {
         this.authService.setToken(jwtReponse);
       },
-      (error)=>{
-        switch(error.status){
+      (error) => {
+        switch (error.status) {
           case 401:
             this.changeValidationStringError(error.error)
           case 400:
@@ -36,7 +36,27 @@ export class AuthComponent implements OnInit {
     )
   }
 
-  changeValidationStringError(message:string):void{
+  signUp(): void {
+    this.authService.signUp(this.signUpDto).subscribe(
+      (jwtReponse) => {
+            this.loginDTO = this.authService.signUpToLogIn(this.signUpDto);
+            this.authService.setToken(jwtReponse);
+      },
+      (error)=>{
+        switch (error.status) {
+          case 400:
+            this.changeValidationStringError(error.error);
+          case 401:
+            this.changeValidationStringError(error.error);
+        }
+      }
+    )
+  }
+
+  changeValidationStringError(message: string): void {
     this.validationErrorMessage = message;
+  }
+  setIsSignUp(value: boolean): void {
+    this.isSignUp = value;
   }
 }

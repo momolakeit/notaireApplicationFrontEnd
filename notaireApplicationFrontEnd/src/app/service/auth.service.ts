@@ -1,3 +1,5 @@
+import { SignUpDTO } from './../model/request/sign-up-dto';
+import { LogInDTO } from './../model/request/log-in-dto';
 import { Observable } from 'rxjs';
 import { JWTResponse } from './../model/jwtresponse';
 import { Injectable } from '@angular/core';
@@ -9,16 +11,22 @@ import { HttpClient } from '@angular/common/http';
 export class AuthService {
 
   constructor(private http: HttpClient) { }
-  logInUrl: string = environment.baseUrl + "/user/logIn";
   tokenLocalStorageValue: string = "token";
 
-  logIn(email: string, password: string): Observable<JWTResponse> {
-    return this.http.post<JWTResponse>("http://localhost:8080/auth/logIn", { email, password });
+  logIn(logInDTO: LogInDTO): Observable<JWTResponse> {
+    return this.http.post<JWTResponse>(environment.baseUrl + "/auth/logIn", logInDTO);
+  }
+  signUp(signUpDTO: SignUpDTO): Observable<JWTResponse> {
+    return this.http.post<JWTResponse>(environment.baseUrl + "/auth", signUpDTO);
   }
   getToken(): string {
     return localStorage.getItem(this.tokenLocalStorageValue);
   }
   setToken(jwtResponse: JWTResponse): void {
     localStorage.setItem(this.tokenLocalStorageValue, jwtResponse.token);
+  }
+  signUpToLogIn(signupDTO: SignUpDTO): LogInDTO {
+    var loginDTO: LogInDTO = { emailAdress: signupDTO.emailAdress, password: signupDTO.password };
+    return loginDTO;
   }
 }
