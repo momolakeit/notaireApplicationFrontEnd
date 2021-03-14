@@ -1,0 +1,13 @@
+<mat-form-field class="example-full-width">
+    <mat-label>
+        Search
+        <mat-icon>search</mat-icon>
+    </mat-label>
+    <input [ngModel]="userSeachQueryDTO.query" (keyup)="searchUsers()" [matAutocomplete]="auto" name="query" matInput placeholder="Search">
+</mat-form-field>
+
+<mat-autocomplete (keyup)="searchUsers()" #auto="matAutocomplete">
+    <mat-option *ngFor="let user of userList" [value]="userList.nom">
+      <app-user-sneak-peak [userDTO]="user"></app-user-sneak-peak>
+    </mat-option>
+  </mat-autocomplete>
