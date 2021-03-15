@@ -8,7 +8,7 @@ import decode from "jwt-decode";
 export class JwtDecodeService {
 
   constructor() { }
-  decodeUser():any{
+  decodeUserId():any{
     let token =localStorage.getItem("token");
     decode(token);
     return decode(token).sub;
