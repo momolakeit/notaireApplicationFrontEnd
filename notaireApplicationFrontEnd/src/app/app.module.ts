@@ -8,6 +8,7 @@ import { AuthComponent } from './component/auth/auth.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatIconModule } from '@angular/material/icon'
+import { XunkCalendarModule } from 'xunk-calendar'
 import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card'
 import { MatFormFieldModule } from '@angular/material/form-field'
@@ -16,13 +17,15 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { FormsModule } from '@angular/forms';
 import { SearchComponent } from './component/search/search.component';
-import { UserSneakPeakComponent } from './component/user-sneak-peak/user-sneak-peak.component'
+import { UserSneakPeakComponent } from './component/user-sneak-peak/user-sneak-peak.component';
+import { UserComponent } from './component/user/user.component'
 @NgModule({
   declarations: [
     AppComponent,
     AuthComponent,
     SearchComponent,
-    UserSneakPeakComponent
+    UserSneakPeakComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,8 @@ import { UserSneakPeakComponent } from './component/user-sneak-peak/user-sneak-p
     MatInputModule,
     HttpClientModule,
     FormsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    XunkCalendarModule
   ],
   providers: [
     {
