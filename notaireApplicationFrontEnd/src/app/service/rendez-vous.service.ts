@@ -13,4 +13,7 @@ export class RendezVousService {
   fetchRendezVousById(id:number):Observable<RendezVousDTO>{
     return this.http.get<RendezVousDTO>(`${environment.baseUrl}/rendezVous/getRendezVous/${id}`);
   }
+  fetchAllRendezVousByUserId(id:number):Observable<[RendezVousDTO]>{
+    return this.http.get<[RendezVousDTO]>(`${environment.baseUrl}/rendezVous/getAllRendezVousForUser/${id}`);
+  }
 }

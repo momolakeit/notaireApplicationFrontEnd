@@ -9,7 +9,12 @@
     </div>
     <div class="row">
         <div class="col">
-            <xunk-calendar [selectedDate]="selDate"></xunk-calendar>
+            <xunk-calendar (click)="updateCurrentDate()" [selectedDate]="selDate"></xunk-calendar>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" *ngFor="let slot of timeSlots">
+            <app-timeslot [timeSlot]="slot"></app-timeslot>
         </div>
     </div>
 </div>

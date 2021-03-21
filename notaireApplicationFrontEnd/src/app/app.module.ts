@@ -18,14 +18,16 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { FormsModule } from '@angular/forms';
 import { SearchComponent } from './component/search/search.component';
 import { UserSneakPeakComponent } from './component/user-sneak-peak/user-sneak-peak.component';
-import { UserComponent } from './component/user/user.component'
+import { UserComponent } from './component/user/user.component';
+import { TimeslotComponent } from './component/timeslot/timeslot.component'
 @NgModule({
   declarations: [
     AppComponent,
     AuthComponent,
     SearchComponent,
     UserSneakPeakComponent,
-    UserComponent
+    UserComponent,
+    TimeslotComponent
   ],
   imports: [
     BrowserModule,
