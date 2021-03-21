@@ -20,7 +20,6 @@ export class UserComponent implements OnInit {
     this.fetchAllRendezVous();
   }
   updateCurrentDate() {
-    console.log(this.selDate)
     this.initTimeSlots();
     this.filterTimeSlots();
   }
@@ -36,7 +35,7 @@ export class UserComponent implements OnInit {
   checkIfTimeSlotAvalible(timeSlot: TimeSlot): boolean {
     let returnValue = true;
     this.rendezVousList.forEach(rv => {
-      if (this.isDateDebutRendezVousInTimeSlot(timeSlot, rv) || this.isDateFinRendezVousInTimeSlot(timeSlot, rv)) {
+      if (this.isTimeSlotTaken(timeSlot,rv)) {
         returnValue = false;
 
       }
@@ -73,11 +72,17 @@ export class UserComponent implements OnInit {
     date.setMinutes(minutes);
     return date;
   }
+  isTimeSlotTaken(timeSlot:TimeSlot,rendezVous:RendezVousDTO):boolean{
+    return this.isDateDebutRendezVousInTimeSlot(timeSlot, rendezVous) || this.isDateFinRendezVousInTimeSlot(timeSlot, rendezVous) || this.isDateRendezVousOverTimeSlot(timeSlot,rendezVous)
+  }
   isDateDebutRendezVousInTimeSlot(timeSlot: TimeSlot, rendezVous: RendezVousDTO): boolean {
     return this.parseDate(timeSlot.dateDebut) <= this.parseDate(rendezVous.dateDebut) && this.parseDate(rendezVous.dateDebut) <= this.parseDate(timeSlot.dateFin)
   }
   isDateFinRendezVousInTimeSlot(timeSlot: TimeSlot, rendezVous: RendezVousDTO): boolean {
     return this.parseDate(timeSlot.dateDebut) <= this.parseDate(rendezVous.dateFin) && this.parseDate(rendezVous.dateFin) <= this.parseDate(timeSlot.dateFin)
+  }
+  isDateRendezVousOverTimeSlot(timeSlot: TimeSlot, rendezVous: RendezVousDTO): boolean {
+    return this.parseDate(rendezVous.dateDebut) <= this.parseDate(timeSlot.dateDebut) && this.parseDate(timeSlot.dateFin) <= this.parseDate(rendezVous.dateFin)
   }
   parseDate(date: Date): Number {
     return Date.parse(date.toString())
