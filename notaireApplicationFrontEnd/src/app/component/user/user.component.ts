@@ -23,8 +23,6 @@ export class UserComponent implements OnInit {
     console.log(this.selDate)
     this.initTimeSlots();
     this.filterTimeSlots();
-    console.log(this.timeSlots)
-    // changes.prop contains the old and the new value...
   }
 
   fetchAllRendezVous(): void {
@@ -39,9 +37,6 @@ export class UserComponent implements OnInit {
     let returnValue = true;
     this.rendezVousList.forEach(rv => {
       if (this.isDateDebutRendezVousInTimeSlot(timeSlot, rv) || this.isDateFinRendezVousInTimeSlot(timeSlot, rv)) {
-        console.log("wapaww")
-        console.log(timeSlot)
-        console.log(rv);
         returnValue = false;
 
       }
