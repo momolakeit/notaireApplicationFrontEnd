@@ -1,3 +1,4 @@
+import { CreateRendezVousRequestDTO } from './../model/request/create-rendez-vous-request-dto';
 import { environment } from './../../environments/environment';
 import { Observable } from 'rxjs';
 import { RendezVousDTO } from './../model/rendez-vous-dto';
@@ -15,5 +16,8 @@ export class RendezVousService {
   }
   fetchAllRendezVousByUserId(id:number):Observable<[RendezVousDTO]>{
     return this.http.get<[RendezVousDTO]>(`${environment.baseUrl}/rendezVous/getAllRendezVousForUser/${id}`);
+  }
+  createRendezVous(createRendezVousRequestDTO:CreateRendezVousRequestDTO):Observable<RendezVousDTO>{
+    return this.http.post<RendezVousDTO>(`${environment.baseUrl}/rendezVous/`,createRendezVousRequestDTO);
   }
 }

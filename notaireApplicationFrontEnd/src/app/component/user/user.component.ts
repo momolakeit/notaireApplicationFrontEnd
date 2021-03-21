@@ -1,3 +1,4 @@
+import { JwtDecodeService } from './../../service/jwt-decode.service';
 import { TimeSlot } from './../../model/time-slot';
 import { RendezVousService } from './../../service/rendez-vous.service';
 import { XunkCalendarModule } from 'xunk-calendar';
@@ -11,7 +12,7 @@ import { RendezVousDTO } from 'src/app/model/rendez-vous-dto';
 })
 export class UserComponent implements OnInit {
 
-  constructor(private rendezVousService: RendezVousService) { }
+  constructor(private rendezVousService: RendezVousService,private jwtDecodeService:JwtDecodeService) { }
   @Input() selDate: any;
   rendezVousList: [RendezVousDTO]
   timeSlots: TimeSlot[] = []
@@ -25,7 +26,7 @@ export class UserComponent implements OnInit {
   }
 
   fetchAllRendezVous(): void {
-    this.rendezVousService.fetchAllRendezVousByUserId(1).subscribe((data) => {
+    this.rendezVousService.fetchAllRendezVousByUserId(this.jwtDecodeService.decodeUserId()).subscribe((data) => {
       this.rendezVousList = data;
     })
   }
