@@ -12,10 +12,11 @@ import { RendezVousDTO } from 'src/app/model/rendez-vous-dto';
 })
 export class UserComponent implements OnInit {
 
-  constructor(private rendezVousService: RendezVousService,private jwtDecodeService:JwtDecodeService) { }
+  constructor(private rendezVousService: RendezVousService) { }
   @Input() selDate: any;
   rendezVousList: [RendezVousDTO]
   timeSlots: TimeSlot[] = []
+  userId:number;
   ngOnInit(): void {
     this.selDate = XunkCalendarModule.getToday();
     this.fetchAllRendezVous();
@@ -26,7 +27,7 @@ export class UserComponent implements OnInit {
   }
 
   fetchAllRendezVous(): void {
-    this.rendezVousService.fetchAllRendezVousByUserId(this.jwtDecodeService.decodeUserId()).subscribe((data) => {
+    this.rendezVousService.fetchAllRendezVousByUserId(1).subscribe((data) => {
       this.rendezVousList = data;
     })
   }

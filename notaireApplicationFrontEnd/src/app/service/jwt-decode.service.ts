@@ -11,7 +11,6 @@ export class JwtDecodeService {
   constructor() { }
   decodeUserId():any{
     let token =localStorage.getItem("token");
-    console.log(decode(token));
     return decode<JwtPayload>(token).sub;
   }
 }
