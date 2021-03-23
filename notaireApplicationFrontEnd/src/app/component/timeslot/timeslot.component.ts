@@ -2,7 +2,7 @@ import { JwtDecodeService } from './../../service/jwt-decode.service';
 import { CreateRendezVousRequestDTO } from './../../model/request/create-rendez-vous-request-dto';
 import { RendezVousService } from './../../service/rendez-vous.service';
 import { TimeSlot } from './../../model/time-slot';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-timeslot',
@@ -13,13 +13,14 @@ export class TimeslotComponent implements OnInit {
 
   constructor(private rendezVousService: RendezVousService, private jwtDecode: JwtDecodeService) { }
   @Input() timeSlot: TimeSlot
-
+  @Output() rendezVousCreated = new EventEmitter();
   ngOnInit(): void {
   }
   createRendezVous(): void {
     this.rendezVousService.createRendezVous(this.initCreateRendezVousRequestDTO()).subscribe(
       (data) => {
         console.log("sucess")
+        this.rendezVousCreated.emit();
       },
       (error) => {
         console.log(error);
@@ -35,5 +36,4 @@ export class TimeslotComponent implements OnInit {
     };
     return requestDTO;
   }
-
 }

@@ -29,6 +29,7 @@ export class UserComponent implements OnInit {
   fetchAllRendezVous(): void {
     this.rendezVousService.fetchAllRendezVousByUserId(1).subscribe((data) => {
       this.rendezVousList = data;
+      this.updateCurrentDate();
     })
   }
   filterTimeSlots() {

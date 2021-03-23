@@ -1,3 +1,6 @@
-<mat-card (click)="createRendezVous()" class="example-card mx-auto mt-5 w-75">
-    {{timeSlot.dateDebut.toString()}}
+<mat-card (click)="createRendezVous()" style="background-color: blueviolet;" class="example-card mx-auto">
+    <div class="text-align-center">
+        {{timeSlot.dateDebut.toLocaleTimeString()}}
+    </div>
+    
 </mat-card>

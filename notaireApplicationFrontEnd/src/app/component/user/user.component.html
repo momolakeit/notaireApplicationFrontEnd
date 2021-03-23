@@ -12,9 +12,9 @@
             <xunk-calendar (click)="updateCurrentDate()" [selectedDate]="selDate"></xunk-calendar>
         </div>
     </div>
-    <div class="row">
-        <div class="col-4" *ngFor="let slot of timeSlots">
-            <app-timeslot [timeSlot]="slot"></app-timeslot>
-        </div>
-    </div>
+    <ul class="row nav text-nowrap flex-nowrap" style="overflow-x: auto;">
+        <li class="col-3 " *ngFor="let slot of timeSlots">
+            <app-timeslot (rendezVousCreated)="fetchAllRendezVous()" [timeSlot]="slot"></app-timeslot>
+        </li>
+    </ul>
 </div>
