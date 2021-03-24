@@ -16,7 +16,10 @@ export class UserComponent implements OnInit {
   @Input() selDate: any;
   rendezVousList: [RendezVousDTO]
   timeSlots: TimeSlot[] = []
-  userId:number;
+  carouselTimeSlots: TimeSlot[]
+  userId: number;
+  compteurItemCarousel = 0;
+  nombreItemParCarousel = 3;
   ngOnInit(): void {
     this.selDate = XunkCalendarModule.getToday();
     this.fetchAllRendezVous();
@@ -30,6 +33,8 @@ export class UserComponent implements OnInit {
     this.rendezVousService.fetchAllRendezVousByUserId(1).subscribe((data) => {
       this.rendezVousList = data;
       this.updateCurrentDate();
+      this.moveCarouselFoward();
+      this.updateCarousel();
     })
   }
   filterTimeSlots() {
@@ -38,7 +43,7 @@ export class UserComponent implements OnInit {
   checkIfTimeSlotAvalible(timeSlot: TimeSlot): boolean {
     let returnValue = true;
     this.rendezVousList.forEach(rv => {
-      if (this.isTimeSlotTaken(timeSlot,rv)) {
+      if (this.isTimeSlotTaken(timeSlot, rv)) {
         returnValue = false;
 
       }
@@ -63,6 +68,24 @@ export class UserComponent implements OnInit {
       this.timeSlots[i] = timeSlot;
     }
   }
+  updateCarousel(): void {
+    this.carouselTimeSlots = this.timeSlots.slice(this.compteurItemCarousel - this.nombreItemParCarousel, this.compteurItemCarousel);
+  }
+  moveCarouselFoward(): void {
+    this.compteurItemCarousel = this.compteurItemCarousel + this.nombreItemParCarousel;
+    if (this.compteurItemCarousel >= this.timeSlots.length - this.nombreItemParCarousel) {
+      this.compteurItemCarousel = this.timeSlots.length - this.nombreItemParCarousel;
+    }
+    this.updateCarousel()
+  }
+  moveCarouselBackwards(): void {
+    this.compteurItemCarousel = this.compteurItemCarousel - this.nombreItemParCarousel;
+    if (this.compteurItemCarousel < this.compteurItemCarousel - this.nombreItemParCarousel) {
+      this.compteurItemCarousel = 0;
+    }
+    this.updateCarousel();
+
+  }
   isOdd(val: number): boolean {
     return val % 2 == 1;
   }
@@ -75,8 +98,8 @@ export class UserComponent implements OnInit {
     date.setMinutes(minutes);
     return date;
   }
-  isTimeSlotTaken(timeSlot:TimeSlot,rendezVous:RendezVousDTO):boolean{
-    return this.isDateDebutRendezVousInTimeSlot(timeSlot, rendezVous) || this.isDateFinRendezVousInTimeSlot(timeSlot, rendezVous) || this.isDateRendezVousOverTimeSlot(timeSlot,rendezVous)
+  isTimeSlotTaken(timeSlot: TimeSlot, rendezVous: RendezVousDTO): boolean {
+    return this.isDateDebutRendezVousInTimeSlot(timeSlot, rendezVous) || this.isDateFinRendezVousInTimeSlot(timeSlot, rendezVous) || this.isDateRendezVousOverTimeSlot(timeSlot, rendezVous)
   }
   isDateDebutRendezVousInTimeSlot(timeSlot: TimeSlot, rendezVous: RendezVousDTO): boolean {
     return this.parseDate(timeSlot.dateDebut) <= this.parseDate(rendezVous.dateDebut) && this.parseDate(rendezVous.dateDebut) <= this.parseDate(timeSlot.dateFin)

@@ -12,9 +12,30 @@
             <xunk-calendar (click)="updateCurrentDate()" [selectedDate]="selDate"></xunk-calendar>
         </div>
     </div>
-    <ul class="row nav text-nowrap flex-nowrap" style="overflow-x: auto;">
-        <li class="col-3 " *ngFor="let slot of timeSlots">
-            <app-timeslot (rendezVousCreated)="fetchAllRendezVous()" [timeSlot]="slot"></app-timeslot>
-        </li>
-    </ul>
+    <div id="carouselExampleControls" class="row carousel slide" *ngIf="carouselTimeSlots" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <app-timeslot (rendezVousCreated)="fetchAllRendezVous()" [timeSlot]="carouselTimeSlots[0]"></app-timeslot>
+                    </div>
+                    <div class="col">
+                        <app-timeslot (rendezVousCreated)="fetchAllRendezVous()" [timeSlot]="carouselTimeSlots[1]"></app-timeslot>
+                    </div>
+                    <div class="col">
+                        <app-timeslot (rendezVousCreated)="fetchAllRendezVous()" [timeSlot]="carouselTimeSlots[2]"></app-timeslot>
+                    </div>
+                </div>
+            </div>
+            
+        <a class="carousel-control-prev" (click)="moveCarouselBackwards()" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" (click)="moveCarouselFoward()" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
 </div>
