@@ -102,10 +102,10 @@ export class UserComponent implements OnInit {
     return this.isDateDebutRendezVousInTimeSlot(timeSlot, rendezVous) || this.isDateFinRendezVousInTimeSlot(timeSlot, rendezVous) || this.isDateRendezVousOverTimeSlot(timeSlot, rendezVous)
   }
   isDateDebutRendezVousInTimeSlot(timeSlot: TimeSlot, rendezVous: RendezVousDTO): boolean {
-    return this.parseDate(timeSlot.dateDebut) <= this.parseDate(rendezVous.dateDebut) && this.parseDate(rendezVous.dateDebut) <= this.parseDate(timeSlot.dateFin)
+    return this.parseDate(timeSlot.dateDebut) <= this.parseDate(rendezVous.dateDebut) && this.parseDate(rendezVous.dateDebut) < this.parseDate(timeSlot.dateFin)
   }
   isDateFinRendezVousInTimeSlot(timeSlot: TimeSlot, rendezVous: RendezVousDTO): boolean {
-    return this.parseDate(timeSlot.dateDebut) <= this.parseDate(rendezVous.dateFin) && this.parseDate(rendezVous.dateFin) <= this.parseDate(timeSlot.dateFin)
+    return this.parseDate(timeSlot.dateDebut) < this.parseDate(rendezVous.dateFin) && this.parseDate(rendezVous.dateFin) <= this.parseDate(timeSlot.dateFin)
   }
   isDateRendezVousOverTimeSlot(timeSlot: TimeSlot, rendezVous: RendezVousDTO): boolean {
     return this.parseDate(rendezVous.dateDebut) <= this.parseDate(timeSlot.dateDebut) && this.parseDate(timeSlot.dateFin) <= this.parseDate(rendezVous.dateFin)
