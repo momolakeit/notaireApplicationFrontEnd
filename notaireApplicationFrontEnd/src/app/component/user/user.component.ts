@@ -1,9 +1,13 @@
+import { UserDTO } from './../../model/user-dto';
 import { JwtDecodeService } from './../../service/jwt-decode.service';
 import { TimeSlot } from './../../model/time-slot';
 import { RendezVousService } from './../../service/rendez-vous.service';
 import { XunkCalendarModule } from 'xunk-calendar';
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { RendezVousDTO } from 'src/app/model/rendez-vous-dto';
+import { ActivatedRoute } from '@angular/router';
+import { ThrowStmt } from '@angular/compiler';
+import { UserService } from 'src/app/service/user.service';
 
 @Component({
   selector: 'app-user',
@@ -12,29 +16,33 @@ import { RendezVousDTO } from 'src/app/model/rendez-vous-dto';
 })
 export class UserComponent implements OnInit {
 
-  constructor(private rendezVousService: RendezVousService) { }
+  constructor(private activatedRoute: ActivatedRoute, private jwtDecodeService: JwtDecodeService, private userService: UserService) { }
   @Input() selDate: any;
-  rendezVousList: [RendezVousDTO]
+  rendezVousList: RendezVousDTO[]
   timeSlots: TimeSlot[] = []
   carouselTimeSlots: TimeSlot[]
-  userId: number;
+  user: UserDTO;
   compteurItemCarousel = 0;
   nombreItemParCarousel = 3;
   ngOnInit(): void {
     this.selDate = XunkCalendarModule.getToday();
-    this.fetchAllRendezVous();
+    this.getUserId();
   }
   updateCurrentDate() {
     this.initTimeSlots();
     this.filterTimeSlots();
   }
 
-  fetchAllRendezVous(): void {
-    this.rendezVousService.fetchAllRendezVousByUserId(1).subscribe((data) => {
-      this.rendezVousList = data;
-      this.updateCurrentDate();
-      this.moveCarouselFoward();
-      this.updateCarousel();
+  initRendezVous(rendezVousList: RendezVousDTO[]): void {
+    this.rendezVousList = rendezVousList;
+    this.updateCurrentDate();
+    this.moveCarouselFoward();
+    this.updateCarousel();
+  }
+  fetchUser(): void {
+    this.userService.fetchUserById(this.user.id).subscribe(data => {
+      this.user = data;
+      this.initRendezVous(this.user.rendezVous);
     })
   }
   filterTimeSlots() {
@@ -112,6 +120,14 @@ export class UserComponent implements OnInit {
   }
   parseDate(date: Date): Number {
     return Date.parse(date.toString())
+  }
+  getUserId(): void {
+    this.activatedRoute.paramMap.subscribe(params => {
+      let userIdFromURL = params.get('id');
+      var userId = userIdFromURL != null ? parseInt(userIdFromURL) : this.jwtDecodeService.decodeUserId();
+      this.user = { id: userId, emailAdress: null, prenom: null, nom: null, fichierDocuments: null, factures: null, password: null, rendezVous: null };
+      this.fetchUser()
+    })
   }
 
 }

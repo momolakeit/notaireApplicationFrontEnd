@@ -15,4 +15,7 @@ export class UserService {
   search(userSearchQueryDTOL:UserSearchQueryDTO):Observable<[UserDTO]>{
     return this.httpClient.post<[UserDTO]>(environment.baseUrl+"/user/search",userSearchQueryDTOL);
   }
+  fetchUserById(id:number):Observable<UserDTO>{
+    return this.httpClient.get<UserDTO>(`${environment.baseUrl}/user/${id}`);
+  }
 }
