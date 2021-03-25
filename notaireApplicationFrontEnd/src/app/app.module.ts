@@ -19,7 +19,8 @@ import { FormsModule } from '@angular/forms';
 import { SearchComponent } from './component/search/search.component';
 import { UserSneakPeakComponent } from './component/user-sneak-peak/user-sneak-peak.component';
 import { UserComponent } from './component/user/user.component';
-import { TimeslotComponent } from './component/timeslot/timeslot.component'
+import { TimeslotComponent } from './component/timeslot/timeslot.component';
+import { UploadDocumentComponent } from './component/upload-document/upload-document.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +28,8 @@ import { TimeslotComponent } from './component/timeslot/timeslot.component'
     SearchComponent,
     UserSneakPeakComponent,
     UserComponent,
-    TimeslotComponent
+    TimeslotComponent,
+    UploadDocumentComponent
   ],
   imports: [
     BrowserModule,
