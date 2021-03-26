@@ -1,6 +1,6 @@
 import { FichierDocumentService } from './../../service/fichier-document.service';
 import { CreateFichierDocumentRequestDTO } from './../../model/request/create-fichier-document-request-dto';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
@@ -13,6 +13,8 @@ export class UploadDocumentComponent implements OnInit {
 
   constructor(private fichierDocumentService:FichierDocumentService,private http:HttpClient) { }
 
+  @Output() fichierDocumentCreated = new EventEmitter();
+
   ngOnInit(): void {
   }
   onFileSelected(event){
@@ -22,7 +24,9 @@ export class UploadDocumentComponent implements OnInit {
       const formData = new FormData();
       formData.append('file',file)
       this.fichierDocumentService.createFichierDocument(dto).subscribe(data=>{
-          this.fichierDocumentService.uploadFichierDocument(formData,data.id).subscribe();
+          this.fichierDocumentService.uploadFichierDocument(formData,data.id).subscribe(()=>{
+            this.fichierDocumentCreated.emit();
+          });
       })
     }
   }
