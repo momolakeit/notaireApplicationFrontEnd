@@ -1,6 +1,8 @@
 import { FichierDocumentService } from './../../service/fichier-document.service';
 import { CreateFichierDocumentRequestDTO } from './../../model/request/create-fichier-document-request-dto';
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-upload-document',
@@ -9,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UploadDocumentComponent implements OnInit {
 
-  constructor(private fichierDocumentService:FichierDocumentService) { }
+  constructor(private fichierDocumentService:FichierDocumentService,private http:HttpClient) { }
 
   ngOnInit(): void {
   }
@@ -19,11 +21,8 @@ export class UploadDocumentComponent implements OnInit {
     if(file){
       const formData = new FormData();
       formData.append('file',file)
-      console.log(file)
-
       this.fichierDocumentService.createFichierDocument(dto).subscribe(data=>{
-          console.log("cheeeck");
-          this.fichierDocumentService.uploadFichierDocument(file,data.id).subscribe();
+          this.fichierDocumentService.uploadFichierDocument(formData,data.id).subscribe();
       })
     }
   }

@@ -1,8 +1,5 @@
-<form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
+<form>
        <div>
-              <input type="file" name="profile" (change)="onFileSelect($event)" />
-       </div>
-       <div>
-              <button type="submit">Upload</button>
+              <input type="file" name="profile" (change)="onFileSelected($event)" />
        </div>
 </form>

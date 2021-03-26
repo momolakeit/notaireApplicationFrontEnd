@@ -2,7 +2,7 @@ import { CreateFichierDocumentRequestDTO } from './../model/request/create-fichi
 import { FichierDocumentDTO } from './../model/fichier-document-dto';
 import { Observable } from 'rxjs';
 import { CreateFactureRequestDTO } from './../model/request/create-facture-request-dto';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
 export class FichierDocumentService {
 
   constructor(private http:HttpClient) { }
-  uploadFichierDocument(file:File,fichierDocumentId:Number):Observable<Object>{
+  uploadFichierDocument(file:FormData,fichierDocumentId:Number):Observable<Object>{
     return this.http.post<Object>(`${environment.baseUrl}/fichierDocument/upload/${fichierDocumentId}`,file)
   }
   createFichierDocument(requestDTO:CreateFichierDocumentRequestDTO):Observable<FichierDocumentDTO>{
