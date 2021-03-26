@@ -18,16 +18,8 @@
             <div class="carousel-item active">
                 <div class="container">
                     <div class="row">
-                        <div class="col">
-                            <app-timeslot (rendezVousCreated)="fetchAllRendezVous()" [timeSlot]="carouselTimeSlots[0]">
-                            </app-timeslot>
-                        </div>
-                        <div class="col">
-                            <app-timeslot (rendezVousCreated)="fetchAllRendezVous()" [timeSlot]="carouselTimeSlots[1]">
-                            </app-timeslot>
-                        </div>
-                        <div class="col">
-                            <app-timeslot (rendezVousCreated)="fetchAllRendezVous()" [timeSlot]="carouselTimeSlots[2]">
+                        <div class="col" *ngFor="let slot of carouselTimeSlots">
+                            <app-timeslot (rendezVousCreated)="fetchUser()" [timeSlot]="slot">
                             </app-timeslot>
                         </div>
                     </div>

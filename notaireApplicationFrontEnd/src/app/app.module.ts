@@ -20,7 +20,8 @@ import { SearchComponent } from './component/search/search.component';
 import { UserSneakPeakComponent } from './component/user-sneak-peak/user-sneak-peak.component';
 import { UserComponent } from './component/user/user.component';
 import { TimeslotComponent } from './component/timeslot/timeslot.component';
-import { UploadDocumentComponent } from './component/upload-document/upload-document.component'
+import { UploadDocumentComponent } from './component/upload-document/upload-document.component';
+import { FichierDocumentPreviewComponent } from './component/fichier-document-preview/fichier-document-preview.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +30,8 @@ import { UploadDocumentComponent } from './component/upload-document/upload-docu
     UserSneakPeakComponent,
     UserComponent,
     TimeslotComponent,
-    UploadDocumentComponent
+    UploadDocumentComponent,
+    FichierDocumentPreviewComponent
   ],
   imports: [
     BrowserModule,
