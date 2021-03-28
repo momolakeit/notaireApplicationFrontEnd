@@ -2,6 +2,7 @@ import { AuthInterceptorService } from './service/request/auth-interceptor.servi
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import {NgxExtendedPdfViewerModule} from 'ngx-extended-pdf-viewer'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthComponent } from './component/auth/auth.component';
@@ -21,7 +22,8 @@ import { UserSneakPeakComponent } from './component/user-sneak-peak/user-sneak-p
 import { UserComponent } from './component/user/user.component';
 import { TimeslotComponent } from './component/timeslot/timeslot.component';
 import { UploadDocumentComponent } from './component/upload-document/upload-document.component';
-import { FichierDocumentPreviewComponent } from './component/fichier-document-preview/fichier-document-preview.component'
+import { FichierDocumentPreviewComponent } from './component/fichier-document-preview/fichier-document-preview.component';
+import { FichierDocumentComponent } from './component/fichier-document/fichier-document.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +33,8 @@ import { FichierDocumentPreviewComponent } from './component/fichier-document-pr
     UserComponent,
     TimeslotComponent,
     UploadDocumentComponent,
-    FichierDocumentPreviewComponent
+    FichierDocumentPreviewComponent,
+    FichierDocumentComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,7 +49,8 @@ import { FichierDocumentPreviewComponent } from './component/fichier-document-pr
     HttpClientModule,
     FormsModule,
     MatAutocompleteModule,
-    XunkCalendarModule
+    XunkCalendarModule,
+    NgxExtendedPdfViewerModule
   ],
   providers: [
     {

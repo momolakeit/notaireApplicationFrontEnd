@@ -18,4 +18,7 @@ export class FichierDocumentService {
   createFichierDocument(requestDTO:CreateFichierDocumentRequestDTO):Observable<FichierDocumentDTO>{
     return this.http.post<FichierDocumentDTO>(`${environment.baseUrl}/fichierDocument`,requestDTO);
   }
+  getFichierDocumentData(fichierDocumentId:Number):Observable<Blob>{
+    return this.http.get(`${environment.baseUrl}/fichierDocument/data/${fichierDocumentId}`, {responseType: 'blob'})
+  }
 }
