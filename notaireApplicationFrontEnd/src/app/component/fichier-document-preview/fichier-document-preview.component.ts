@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FichierDocumentDTO } from 'src/app/model/fichier-document-dto';
 
 @Component({
   selector: 'app-fichier-document-preview',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class FichierDocumentPreviewComponent implements OnInit {
 
   constructor() { }
-
+  @Input() fichierDocument:FichierDocumentDTO
   ngOnInit(): void {
   }
 

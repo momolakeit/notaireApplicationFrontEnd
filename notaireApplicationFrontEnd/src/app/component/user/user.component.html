@@ -10,7 +10,7 @@
     </div>
     <div class="row" *ngIf="user.fichierDocuments">
         <ng-container *ngFor="let documents of user.fichierDocuments">
-            <app-fichier-document-preview class="m-3"></app-fichier-document-preview>
+            <app-fichier-document-preview class="m-3" [fichierDocument]="documents"></app-fichier-document-preview>
         </ng-container>
     </div>
     <div class="row">

@@ -1,5 +1,7 @@
-<mat-card>
-    <span class="material-icons">
-        file_present
-    </span>
-</mat-card>
+<a [routerLink]="['/fichierDocument']" [queryParams]="{fichierDocumentId:fichierDocument.id}">
+    <mat-card>
+        <span class="material-icons">
+            file_present
+        </span>
+    </mat-card>
+</a>
