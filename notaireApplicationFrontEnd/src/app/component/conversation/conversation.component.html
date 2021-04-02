@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <app-message></app-message>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <mat-form-field class="example-full-width w-100">
+                <input name="messageValue"  matInput>
+            </mat-form-field>
+        </div>
+        <div class="col-2">
+            <app-upload-document (fichierDocumentCreated)="fetchUser()"></app-upload-document>
+        </div>
+        <div class="col mt-2">
+            <button  style="background-color:#7B1FA2;" mat-button>Send Message</button>
+        </div>
+    </div>
+</div>

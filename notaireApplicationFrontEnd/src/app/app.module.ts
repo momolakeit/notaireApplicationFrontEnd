@@ -23,7 +23,9 @@ import { UserComponent } from './component/user/user.component';
 import { TimeslotComponent } from './component/timeslot/timeslot.component';
 import { UploadDocumentComponent } from './component/upload-document/upload-document.component';
 import { FichierDocumentPreviewComponent } from './component/fichier-document-preview/fichier-document-preview.component';
-import { FichierDocumentComponent } from './component/fichier-document/fichier-document.component'
+import { FichierDocumentComponent } from './component/fichier-document/fichier-document.component';
+import { ConversationComponent } from './component/conversation/conversation.component';
+import { MessageComponent } from './component/message/message.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,6 +37,8 @@ import { FichierDocumentComponent } from './component/fichier-document/fichier-d
     UploadDocumentComponent,
     FichierDocumentPreviewComponent,
     FichierDocumentComponent,
+    ConversationComponent,
+    MessageComponent,
   ],
   imports: [
     BrowserModule,

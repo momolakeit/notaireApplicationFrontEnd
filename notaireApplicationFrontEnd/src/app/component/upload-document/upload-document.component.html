@@ -1,5 +1,11 @@
 <form>
        <div>
-              <input type="file" name="profile" (change)="onFileSelected($event)" />
+              <label>
+                     Choose file
+                     <span class="material-icons">
+                            file_present
+                     </span>
+                     <input type="file" style="opacity: 0;" name="profile" (change)="onFileSelected($event)" />
+              </label>
        </div>
 </form>
