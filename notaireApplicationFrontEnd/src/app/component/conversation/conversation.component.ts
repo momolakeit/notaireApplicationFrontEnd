@@ -13,5 +13,8 @@ export class ConversationComponent implements OnInit {
   ngOnInit(): void {
     this.messagingService.initWebSocketConnection();
   }
+  sendMessage(){
+    this.messagingService.sendMessage();
+  }
 
 }
