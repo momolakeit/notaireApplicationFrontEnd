@@ -1,3 +1,4 @@
+import { ConversationDTO } from './../../model/conversation-dto';
 import { MessagingService } from './../../service/messaging.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,12 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConversationComponent implements OnInit {
 
-  constructor(private messagingService:MessagingService) { }
+  constructor(private messagingService: MessagingService) { }
+  conversationDTO: ConversationDTO;
 
   ngOnInit(): void {
     this.messagingService.initWebSocketConnection();
+    this.messagingService.initWebSocketConnection().subscribe(data => {
+      this.conversationDTO = data;
+    })
   }
-  sendMessage(){
+  sendMessage() {
     this.messagingService.sendMessage();
   }
 
