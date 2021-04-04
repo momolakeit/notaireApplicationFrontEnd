@@ -1,21 +1,22 @@
 <div class="container">
-    <div class="row">
-        <div class="col">
-            <app-message></app-message>
+    <ng-container *ngIf="conversationDTO">
+        <div class="row" *ngFor="let mess of conversationDTO.messages">
+            <div class="col">
+                <app-message [messagesDTO]="mess"></app-message>
+            </div>
         </div>
-
-    </div>
-    <div class="row">
+    </ng-container>
+    <div class="row mt-4">
         <div class="col-6">
             <mat-form-field class="example-full-width w-100">
-                <input name="messageValue"  matInput>
+                <input name="messageValue" style="color: white;" [(ngModel)]="message"  matInput>
             </mat-form-field>
         </div>
         <div class="col-2">
             <app-upload-document ></app-upload-document>
         </div>
         <div class="col mt-2">
-            <button (click)="sendMessage()" style="background-color:#7B1FA2;" mat-button>Send Message</button>
+            <button (click)="sendMessage()" style="background-color:#7B1FA2; color: white;" mat-button>Send Message</button>
         </div>
     </div>
 </div>

@@ -1,3 +1,5 @@
+import { HttpClient } from '@angular/common/http';
+import { UserDTO } from './../model/user-dto';
 import { Observable, Observer } from 'rxjs';
 import { ConversationDTO } from './../model/conversation-dto';
 import { MessagesDTO } from './../model/messages-dto';
@@ -13,9 +15,13 @@ import { environment } from 'src/environments/environment';
 export class MessagingService {
 
 
-  constructor() { }
+  constructor(private http:HttpClient) { }
   stompClient;
   conversation: ConversationDTO;
+
+  getConversation(conversationId:number):Observable<ConversationDTO>{
+      return this.http.get<ConversationDTO>(`${environment.baseUrl}/conversation/getConversation/${conversationId}`)
+  }
   initWebSocketConnection(): Observable<ConversationDTO> {
     const locations = new Observable<ConversationDTO>((observer) => {
       const ws = new SockJS(environment.baseUrl + "/addMessage");
@@ -33,8 +39,8 @@ export class MessagingService {
       observer.next(that.conversation);
     })
   }
-  sendMessage() {
-    var message: MessagesDTO = { id: null, user: null, conversation: null, message: "salut mon chummy" }
+  sendMessage(messageValue:string,user:UserDTO) {
+    var message: MessagesDTO = { id: null, user: user, conversation: null, message: messageValue }
     this.stompClient.send('/app/addMessage/1', null, JSON.stringify(message))
   }
 }

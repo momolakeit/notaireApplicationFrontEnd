@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { JwtDecodeService } from './../../service/jwt-decode.service';
+import { MessagesDTO } from './../../model/messages-dto';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-message',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MessageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private jwtDecodeService:JwtDecodeService) { }
 
+  @Input() messagesDTO: MessagesDTO
   ngOnInit(): void {
   }
-
+  isMessageSentByUser(){
+    console.log(this.messagesDTO.user.id == this.jwtDecodeService.decodeUserId());
+    return this.messagesDTO.user.id == this.jwtDecodeService.decodeUserId();
+  }
 }
