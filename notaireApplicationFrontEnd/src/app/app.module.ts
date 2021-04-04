@@ -25,7 +25,8 @@ import { UploadDocumentComponent } from './component/upload-document/upload-docu
 import { FichierDocumentPreviewComponent } from './component/fichier-document-preview/fichier-document-preview.component';
 import { FichierDocumentComponent } from './component/fichier-document/fichier-document.component';
 import { ConversationComponent } from './component/conversation/conversation.component';
-import { MessageComponent } from './component/message/message.component'
+import { MessageComponent } from './component/message/message.component';
+import { RendezVousPreviewComponent } from './component/rendez-vous-preview/rendez-vous-preview.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +40,7 @@ import { MessageComponent } from './component/message/message.component'
     FichierDocumentComponent,
     ConversationComponent,
     MessageComponent,
+    RendezVousPreviewComponent,
   ],
   imports: [
     BrowserModule,

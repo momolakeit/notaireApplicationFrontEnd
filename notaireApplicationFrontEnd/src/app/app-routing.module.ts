@@ -1,3 +1,4 @@
+import { RendezVousPreviewComponent } from './component/rendez-vous-preview/rendez-vous-preview.component';
 import { ConversationComponent } from './component/conversation/conversation.component';
 import { FichierDocumentComponent } from './component/fichier-document/fichier-document.component';
 import { UserComponent } from './component/user/user.component';
@@ -12,7 +13,8 @@ const routes: Routes = [
   { path: 'user', component: UserComponent },
   { path: 'fichierDocument', component: FichierDocumentComponent },
   { path: 'conversation', component: ConversationComponent },
-  { path: 'message', component: MessageComponent }
+  { path: 'message', component: MessageComponent },
+  { path: 'rendezVousPreview', component: RendezVousPreviewComponent }
 
 ];
 

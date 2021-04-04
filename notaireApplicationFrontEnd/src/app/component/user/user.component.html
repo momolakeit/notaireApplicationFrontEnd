@@ -13,6 +13,12 @@
             <app-fichier-document-preview class="m-3" [fichierDocument]="documents"></app-fichier-document-preview>
         </ng-container>
     </div>
+    <div class="row" *ngIf="user.rendezVous">
+        <ng-container *ngFor="let rv of user.rendezVous">
+            <app-rendez-vous-preview class="m-3" [rendezVousDTO]="rv"></app-rendez-vous-preview>
+        </ng-container>
+
+    </div>
     <div class="row">
         <div class="col">
             <xunk-calendar (click)="updateCurrentDate()" [selectedDate]="selDate"></xunk-calendar>

@@ -1,3 +1,4 @@
+import { ConversationDTO } from './conversation-dto';
 import { UserDTO } from "./user-dto";
 
 export interface RendezVousDTO {
@@ -6,4 +7,5 @@ export interface RendezVousDTO {
     dateFin: Date;
     dureeEnMinute:number;
     users:[UserDTO]
+    conversation : ConversationDTO
 }
