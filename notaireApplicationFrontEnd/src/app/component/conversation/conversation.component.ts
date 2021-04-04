@@ -11,28 +11,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConversationComponent implements OnInit {
 
-  constructor(private messagingService: MessagingService,private jwtDecodeService:JwtDecodeService) { }
+  constructor(private messagingService: MessagingService, private jwtDecodeService: JwtDecodeService) { }
   conversationDTO: ConversationDTO;
-  message:string;
+  message: string;
 
   ngOnInit(): void {
     this.initConversation();
     this.messagingService.initWebSocketConnection();
-    this.messagingService.initWebSocketConnection().subscribe(data => {
-      this.conversationDTO = data;
-    })
+    this.messagingService.initWebSocketConnection().subscribe(
+      (data) => {
+        this.conversationDTO = data;
+      },
+      (error)=>{
+        console.log(error);
+      })
   }
 
-  initConversation(){
-    this.messagingService.getConversation(1).subscribe(data=>{
+  initConversation() {
+    this.messagingService.getConversation(1).subscribe(data => {
       this.conversationDTO = data;
     })
   }
 
   sendMessage() {
     let userId = this.jwtDecodeService.decodeUserId();
-    let userDTO :UserDTO ={id:userId,emailAdress:null,prenom:null,nom:null,password:null,fichierDocuments:null,factures:null,rendezVous:null}
-    this.messagingService.sendMessage(this.message,userDTO);
+    let userDTO: UserDTO = { id: userId, emailAdress: null, prenom: null, nom: null, password: null, fichierDocuments: null, factures: null, rendezVous: null }
+    this.messagingService.sendMessage(this.message, userDTO);
   }
 
 }

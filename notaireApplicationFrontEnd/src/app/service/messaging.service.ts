@@ -15,21 +15,29 @@ import { environment } from 'src/environments/environment';
 export class MessagingService {
 
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
   stompClient;
   conversation: ConversationDTO;
 
-  getConversation(conversationId:number):Observable<ConversationDTO>{
-      return this.http.get<ConversationDTO>(`${environment.baseUrl}/conversation/getConversation/${conversationId}`)
+  getConversation(conversationId: number): Observable<ConversationDTO> {
+    return this.http.get<ConversationDTO>(`${environment.baseUrl}/conversation/getConversation/${conversationId}`)
   }
   initWebSocketConnection(): Observable<ConversationDTO> {
     const locations = new Observable<ConversationDTO>((observer) => {
       const ws = new SockJS(environment.baseUrl + "/addMessage");
       this.stompClient = Stomp.over(ws);
       const that = this;
-      this.stompClient.connect({ Authorization: "Bearer " + localStorage.getItem("token") }, function (frame) {
-        that.subscribe(that,observer)
-      })
+      this.stompClient.connect({ Authorization: "Bearer " + localStorage.getItem('token') },
+        function (frame) {
+          console.log(frame)
+          that.subscribe(that, observer)
+        },
+        function (error) {
+          observer.error("erreur lors de la connection au serveur");
+        },
+        function (closeEvent) {
+          observer.error("connection au serveur perdue");
+        })
     });
     return locations;
   }
@@ -39,7 +47,7 @@ export class MessagingService {
       observer.next(that.conversation);
     })
   }
-  sendMessage(messageValue:string,user:UserDTO) {
+  sendMessage(messageValue: string, user: UserDTO) {
     var message: MessagesDTO = { id: null, user: user, conversation: null, message: messageValue }
     this.stompClient.send('/app/addMessage/1', null, JSON.stringify(message))
   }
