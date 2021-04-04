@@ -6,16 +6,16 @@ import { AuthComponent } from './component/auth/auth.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MessageComponent } from './component/message/message.component';
+import { RendezVousComponent } from './component/rendez-vous/rendez-vous.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/auth', pathMatch: 'full' },
   { path: 'auth', component: AuthComponent },
   { path: 'user', component: UserComponent },
-  { path: 'fichierDocument', component: FichierDocumentComponent },
+  { path: 'fichierDocument/:fichierDocumentId', component: FichierDocumentComponent },
   { path: 'conversation', component: ConversationComponent },
   { path: 'message', component: MessageComponent },
-  { path: 'rendezVousPreview', component: RendezVousPreviewComponent }
-
+  { path: 'rendezVous/:rendezVousId', component: RendezVousComponent }
 ];
 
 @NgModule({

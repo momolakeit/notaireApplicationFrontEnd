@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <span class="material-icons">
+                book_online
+            </span>
+        </div>
+        <div class="col">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        from {{dateDebut}}
+                        <br>
+                        to {{dateFin}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col mt-5">
+                        <button style="background-color:#7B1FA2; color: white;" mat-button>Start conversation</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col font-weight-bold">
+            <h2>Participants </h2>
+        </div>
+    </div>
+    <ng-container *ngIf="rendezVous">
+        <div *ngFor="let user of rendezVous.users" class="row mt-3">
+            <div class="col">
+                {{user.prenom}} {{user.nom}}
+            </div>
+        </div>
+    </ng-container>
+</div>

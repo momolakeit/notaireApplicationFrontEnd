@@ -1,3 +1,4 @@
+import { RendezVousService } from './../../service/rendez-vous.service';
 import { RendezVousDTO } from './../../model/rendez-vous-dto';
 import { Component, Input, OnInit } from '@angular/core';
 
@@ -8,16 +9,16 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class RendezVousPreviewComponent implements OnInit {
 
-  constructor() { }
+  constructor(private rendezVousService:RendezVousService) { }
 
   @Input() rendezVousDTO: RendezVousDTO;
   dateDebut: string;
   dateFin: string;
 
   ngOnInit(): void {
-    // const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    this.dateDebut = new Date(this.rendezVousDTO.dateDebut).toLocaleString();
-    this.dateFin = new Date(this.rendezVousDTO.dateFin).toLocaleString();
+    console.log(this.rendezVousDTO.id)
+    this.dateDebut = this.rendezVousService.dateToLocalString(this.rendezVousDTO.dateDebut);
+    this.dateFin = this.rendezVousService.dateToLocalString(this.rendezVousDTO.dateFin);
   }
 
 }

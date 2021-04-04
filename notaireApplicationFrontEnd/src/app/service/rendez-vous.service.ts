@@ -20,4 +20,7 @@ export class RendezVousService {
   createRendezVous(createRendezVousRequestDTO:CreateRendezVousRequestDTO):Observable<RendezVousDTO>{
     return this.http.post<RendezVousDTO>(`${environment.baseUrl}/rendezVous/`,createRendezVousRequestDTO);
   }
+  dateToLocalString(date:Date):string{
+    return new Date(date).toLocaleString()
+  }
 }
