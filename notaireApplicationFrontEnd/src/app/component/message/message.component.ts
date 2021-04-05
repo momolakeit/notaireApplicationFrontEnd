@@ -15,7 +15,6 @@ export class MessageComponent implements OnInit {
   ngOnInit(): void {
   }
   isMessageSentByUser(){
-    console.log(this.messagesDTO.user.id == this.jwtDecodeService.decodeUserId());
     return this.messagesDTO.user.id == this.jwtDecodeService.decodeUserId();
   }
 }

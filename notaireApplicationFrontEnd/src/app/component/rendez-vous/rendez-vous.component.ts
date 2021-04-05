@@ -33,13 +33,17 @@ export class RendezVousComponent implements OnInit {
     this.dateDebut = this.rendezVousService.dateToLocalString(this.rendezVous.dateDebut);
     this.dateFin = this.rendezVousService.dateToLocalString(this.rendezVous.dateFin);
   }
-  startConversation() {
+  startConversation(): void {
     let conversation: ConversationDTO = { id: null, users: this.rendezVous.users, messages: null, rendezVous: null }
     let requestDTO: CreateConversationRequestDTO = { conversationDTO: conversation, messagesDTO: null, rendezVousDTO: this.rendezVous }
     this.messaging.createConversation(requestDTO).subscribe(data => {
-      console.log(data)
+      console.log(data);
       this.router.navigate(['/conversation', data.id])
     })
+  }
+  joinConversation(): void {
+    console.log(this.rendezVous.conversation)
+    this.router.navigate(['/conversation', this.rendezVous.conversation.id])
   }
 
 }

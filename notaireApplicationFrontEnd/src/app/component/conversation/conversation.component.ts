@@ -18,14 +18,6 @@ export class ConversationComponent implements OnInit {
 
   ngOnInit(): void {
     this.initConversation();
-    this.messagingService.initWebSocketConnection();
-    this.messagingService.initWebSocketConnection().subscribe(
-      (data) => {
-        this.conversationDTO = data;
-      },
-      (error) => {
-        console.log(error);
-      })
   }
 
   initConversation() {
@@ -33,6 +25,13 @@ export class ConversationComponent implements OnInit {
       let conversationId = params.get("conversationId");
       this.messagingService.getConversation(parseInt(conversationId)).subscribe(data => {
         this.conversationDTO = data;
+        this.messagingService.initWebSocketConnection(data.id).subscribe(
+          (data) => {
+            this.conversationDTO = data;
+          },
+          (error) => {
+            console.log(error);
+          })
       })
     })
   }
@@ -40,7 +39,7 @@ export class ConversationComponent implements OnInit {
   sendMessage() {
     let userId = this.jwtDecodeService.decodeUserId();
     let userDTO: UserDTO = { id: userId, emailAdress: null, prenom: null, nom: null, password: null, fichierDocuments: null, factures: null, rendezVous: null }
-    this.messagingService.sendMessage(this.message, userDTO);
+    this.messagingService.sendMessage(this.message, userDTO,this.conversationDTO.id);
   }
 
 }
