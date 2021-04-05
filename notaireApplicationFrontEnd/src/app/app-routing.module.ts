@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'auth', component: AuthComponent },
   { path: 'user', component: UserComponent },
   { path: 'fichierDocument/:fichierDocumentId', component: FichierDocumentComponent },
-  { path: 'conversation', component: ConversationComponent },
+  { path: 'conversation/:conversationId', component: ConversationComponent },
   { path: 'message', component: MessageComponent },
   { path: 'rendezVous/:rendezVousId', component: RendezVousComponent }
 ];

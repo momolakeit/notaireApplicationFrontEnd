@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { UserDTO } from './../../model/user-dto';
 import { JwtDecodeService } from './../../service/jwt-decode.service';
 import { ConversationDTO } from './../../model/conversation-dto';
@@ -11,7 +12,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConversationComponent implements OnInit {
 
-  constructor(private messagingService: MessagingService, private jwtDecodeService: JwtDecodeService) { }
+  constructor(private messagingService: MessagingService, private jwtDecodeService: JwtDecodeService, private activatedRoute: ActivatedRoute) { }
   conversationDTO: ConversationDTO;
   message: string;
 
@@ -22,14 +23,17 @@ export class ConversationComponent implements OnInit {
       (data) => {
         this.conversationDTO = data;
       },
-      (error)=>{
+      (error) => {
         console.log(error);
       })
   }
 
   initConversation() {
-    this.messagingService.getConversation(1).subscribe(data => {
-      this.conversationDTO = data;
+    this.activatedRoute.paramMap.subscribe(params=>{
+      let conversationId = params.get("conversationId");
+      this.messagingService.getConversation(parseInt(conversationId)).subscribe(data => {
+        this.conversationDTO = data;
+      })
     })
   }
 

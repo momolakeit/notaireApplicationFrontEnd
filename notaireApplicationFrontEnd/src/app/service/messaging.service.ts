@@ -1,3 +1,4 @@
+import { CreateConversationRequestDTO } from './../model/request/create-conversation-request-dto';
 import { HttpClient } from '@angular/common/http';
 import { UserDTO } from './../model/user-dto';
 import { Observable, Observer } from 'rxjs';
@@ -18,6 +19,10 @@ export class MessagingService {
   constructor(private http: HttpClient) { }
   stompClient;
   conversation: ConversationDTO;
+
+  createConversation(createConversationDTO: CreateConversationRequestDTO): Observable<ConversationDTO>{
+    return this.http.post<ConversationDTO>(`${environment.baseUrl}/conversation`,createConversationDTO)
+  }
 
   getConversation(conversationId: number): Observable<ConversationDTO> {
     return this.http.get<ConversationDTO>(`${environment.baseUrl}/conversation/getConversation/${conversationId}`)
