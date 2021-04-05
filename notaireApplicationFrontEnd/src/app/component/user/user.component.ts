@@ -1,3 +1,4 @@
+import { TimeslotService } from './../../service/timeslot.service';
 import { UserDTO } from './../../model/user-dto';
 import { JwtDecodeService } from './../../service/jwt-decode.service';
 import { TimeSlot } from './../../model/time-slot';
@@ -16,7 +17,7 @@ import { UserService } from 'src/app/service/user.service';
 })
 export class UserComponent implements OnInit {
 
-  constructor(private activatedRoute: ActivatedRoute, private jwtDecodeService: JwtDecodeService, private userService: UserService) { }
+  constructor(private activatedRoute: ActivatedRoute, private jwtDecodeService: JwtDecodeService, private userService: UserService, private timeSlotService: TimeslotService) { }
   @Input() selDate: any;
   rendezVousList: RendezVousDTO[]
   timeSlots: TimeSlot[] = []
@@ -29,8 +30,8 @@ export class UserComponent implements OnInit {
     this.getUserId();
   }
   updateCurrentDate() {
-    this.initTimeSlots();
-    this.filterTimeSlots();
+    this.timeSlots =this.timeSlotService.initTimeSlots(this.selDate);
+    this.timeSlots = this.timeSlotService.filterTimeSlots(this.rendezVousList,this.timeSlots);
   }
 
   initRendezVous(rendezVousList: RendezVousDTO[]): void {
@@ -45,37 +46,7 @@ export class UserComponent implements OnInit {
       this.initRendezVous(this.user.rendezVous);
     })
   }
-  filterTimeSlots() {
-    this.timeSlots = this.timeSlots.filter(slot => this.checkIfTimeSlotAvalible(slot))
-  }
-  checkIfTimeSlotAvalible(timeSlot: TimeSlot): boolean {
-    let returnValue = true;
-    this.rendezVousList.forEach(rv => {
-      if (this.isTimeSlotTaken(timeSlot, rv)) {
-        returnValue = false;
-
-      }
-    })
-    return returnValue;
-  }
-  initTimeSlots() {
-    let i;
-    let compteurDheure = 0;
-    for (i = 0; i < 48; i = i + 1) {
-      let demiHeure = 30;
-      let debutHeure = 0;
-      let timeSlot: TimeSlot = { dateDebut: this.initDateTimeSlot(compteurDheure, demiHeure), dateFin: this.initDateTimeSlot(compteurDheure, debutHeure) };
-      if (!this.isOdd(i)) {
-        timeSlot.dateDebut.setMinutes(debutHeure);
-        timeSlot.dateFin.setMinutes(demiHeure);
-      }
-      if (this.isOdd(i)) {
-        timeSlot.dateFin.setHours(compteurDheure + 1);
-        compteurDheure = compteurDheure + 1;
-      }
-      this.timeSlots[i] = timeSlot;
-    }
-  }
+ 
   updateCarousel(): void {
     this.carouselTimeSlots = this.timeSlots.slice(this.compteurItemCarousel - this.nombreItemParCarousel, this.compteurItemCarousel);
   }
@@ -94,33 +65,7 @@ export class UserComponent implements OnInit {
     this.updateCarousel();
 
   }
-  isOdd(val: number): boolean {
-    return val % 2 == 1;
-  }
-  initDateTimeSlot(heure: number, minutes: number): Date {
-    let date = new Date();
-    date.setDate(this.selDate.date);
-    date.setFullYear(this.selDate.year);
-    date.setMonth(this.selDate.month);
-    date.setHours(heure);
-    date.setMinutes(minutes);
-    return date;
-  }
-  isTimeSlotTaken(timeSlot: TimeSlot, rendezVous: RendezVousDTO): boolean {
-    return this.isDateDebutRendezVousInTimeSlot(timeSlot, rendezVous) || this.isDateFinRendezVousInTimeSlot(timeSlot, rendezVous) || this.isDateRendezVousOverTimeSlot(timeSlot, rendezVous)
-  }
-  isDateDebutRendezVousInTimeSlot(timeSlot: TimeSlot, rendezVous: RendezVousDTO): boolean {
-    return this.parseDate(timeSlot.dateDebut) <= this.parseDate(rendezVous.dateDebut) && this.parseDate(rendezVous.dateDebut) < this.parseDate(timeSlot.dateFin)
-  }
-  isDateFinRendezVousInTimeSlot(timeSlot: TimeSlot, rendezVous: RendezVousDTO): boolean {
-    return this.parseDate(timeSlot.dateDebut) < this.parseDate(rendezVous.dateFin) && this.parseDate(rendezVous.dateFin) <= this.parseDate(timeSlot.dateFin)
-  }
-  isDateRendezVousOverTimeSlot(timeSlot: TimeSlot, rendezVous: RendezVousDTO): boolean {
-    return this.parseDate(rendezVous.dateDebut) <= this.parseDate(timeSlot.dateDebut) && this.parseDate(timeSlot.dateFin) <= this.parseDate(rendezVous.dateFin)
-  }
-  parseDate(date: Date): Number {
-    return Date.parse(date.toString())
-  }
+  
   getUserId(): void {
     this.activatedRoute.paramMap.subscribe(params => {
       let userIdFromURL = params.get('id');
