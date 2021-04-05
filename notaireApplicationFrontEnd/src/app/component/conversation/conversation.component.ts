@@ -21,7 +21,7 @@ export class ConversationComponent implements OnInit {
   }
 
   initConversation() {
-    this.activatedRoute.paramMap.subscribe(params=>{
+    this.activatedRoute.paramMap.subscribe(params => {
       let conversationId = params.get("conversationId");
       this.messagingService.getConversation(parseInt(conversationId)).subscribe(data => {
         this.conversationDTO = data;
@@ -39,7 +39,8 @@ export class ConversationComponent implements OnInit {
   sendMessage() {
     let userId = this.jwtDecodeService.decodeUserId();
     let userDTO: UserDTO = { id: userId, emailAdress: null, prenom: null, nom: null, password: null, fichierDocuments: null, factures: null, rendezVous: null }
-    this.messagingService.sendMessage(this.message, userDTO,this.conversationDTO.id);
+    this.messagingService.sendMessage(this.message, userDTO, this.conversationDTO.id);
+    this.message = ""
   }
 
 }
