@@ -42,7 +42,6 @@ export class RendezVousComponent implements OnInit {
     })
   }
   joinConversation(): void {
-    console.log(this.rendezVous.conversation)
     this.router.navigate(['/conversation', this.rendezVous.conversation.id])
   }
 

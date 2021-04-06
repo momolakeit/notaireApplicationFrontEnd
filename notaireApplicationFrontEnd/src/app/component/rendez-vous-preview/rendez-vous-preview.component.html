@@ -1,21 +1,29 @@
-<a [routerLink]="['/rendezVous',rendezVousDTO.id]">
-    <mat-card>
-        <div class="container">
-            <div class="row">
-                <span class="material-icons">
-                    book_online
-                </span>
-            </div>
-            <div class="row">
-                <div class="container">
-                    <div class="row">
-                        starts : {{dateDebut}}
-                    </div>
-                    <div class="row">
-                        ends : {{dateFin}}
+<mat-card>
+    <div class="container">
+        <a [routerLink]="['/rendezVous',rendezVousDTO.id]">
+            <div class="container">
+
+
+                <div class="row">
+                    <span class="material-icons">
+                        book_online
+                    </span>
+                </div>
+                <div class="row">
+                    <div class="container">
+                        <div class="row">
+                            starts : {{dateDebut}}
+                        </div>
+                        <div class="row">
+                            ends : {{dateFin}}
+                        </div>
                     </div>
                 </div>
             </div>
+        </a>
+        <div class="row" *ngIf="isJoinConversationBtnActive()">
+            <button (click)="joinConversation()" class="mt-3" style="background-color:#7B1FA2; color: white;"
+                mat-button>Join conversation</button>
         </div>
-    </mat-card>
-</a>
+    </div>
+</mat-card>

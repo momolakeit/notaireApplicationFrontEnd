@@ -15,7 +15,7 @@ export class TimeslotService {
     for (i = 0; i < 48; i = i + 1) {
       let demiHeure = 30;
       let debutHeure = 0;
-      let timeSlot: TimeSlot = { dateDebut: this.initDateTimeSlot(compteurDheure, demiHeure, selDate), dateFin: this.initDateTimeSlot(compteurDheure, debutHeure, selDate) };
+      let timeSlot: TimeSlot = { dateDebut: this.initDateTimeSlot(compteurDheure, demiHeure, selDate.date,selDate.year,selDate.month), dateFin: this.initDateTimeSlot(compteurDheure, debutHeure, selDate.date,selDate.year,selDate.month) };
       if (!this.isOdd(i)) {
         timeSlot.dateDebut.setMinutes(debutHeure);
         timeSlot.dateFin.setMinutes(demiHeure);
@@ -31,11 +31,11 @@ export class TimeslotService {
   isOdd(val: number): boolean {
     return val % 2 == 1;
   }
-  initDateTimeSlot(heure: number, minutes: number, selDate: any): Date {
+  initDateTimeSlot(heure: number, minutes: number, day:number,year:number,month:number): Date {
     let date = new Date();
-    date.setDate(selDate.date);
-    date.setFullYear(selDate.year);
-    date.setMonth(selDate.month);
+    date.setDate(day);
+    date.setFullYear(year);
+    date.setMonth(month);
     date.setHours(heure);
     date.setMinutes(minutes);
     return date;
