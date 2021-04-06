@@ -11,6 +11,7 @@ import { RendezVousComponent } from './component/rendez-vous/rendez-vous.compone
 const routes: Routes = [
   { path: '', redirectTo: '/auth', pathMatch: 'full' },
   { path: 'auth', component: AuthComponent },
+  { path: 'user/:userId', component: UserComponent },
   { path: 'user', component: UserComponent },
   { path: 'fichierDocument/:fichierDocumentId', component: FichierDocumentComponent },
   { path: 'conversation/:conversationId', component: ConversationComponent },

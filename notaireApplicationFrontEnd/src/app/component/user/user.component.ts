@@ -25,6 +25,7 @@ export class UserComponent implements OnInit {
   user: UserDTO;
   compteurItemCarousel = 0;
   nombreItemParCarousel = 3;
+  displayRendezVous =false;
   ngOnInit(): void {
     this.selDate = XunkCalendarModule.getToday();
     this.getUserId();
@@ -42,6 +43,9 @@ export class UserComponent implements OnInit {
   }
   fetchUser(): void {
     this.userService.fetchUserById(this.user.id).subscribe(data => {
+      if(data.id == this.jwtDecodeService.decodeUserId()){
+          this.displayRendezVous = true;
+      }
       this.user = data;
       this.initRendezVous(this.user.rendezVous);
     })
@@ -68,7 +72,7 @@ export class UserComponent implements OnInit {
   
   getUserId(): void {
     this.activatedRoute.paramMap.subscribe(params => {
-      let userIdFromURL = params.get('id');
+      let userIdFromURL = params.get('userId');
       var userId = userIdFromURL != null ? parseInt(userIdFromURL) : this.jwtDecodeService.decodeUserId();
       this.user = { id: userId, emailAdress: null, prenom: null, nom: null, fichierDocuments: null, factures: null, password: null, rendezVous: null };
       this.fetchUser()
