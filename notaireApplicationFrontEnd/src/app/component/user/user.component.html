@@ -20,7 +20,7 @@
 
     </div>
     <div class="row">
-        <div class="col">
+        <div class="col" *ngIf="user.rendezVous">
             <xunk-calendar (click)="updateCurrentDate()" [selectedDate]="selDate"></xunk-calendar>
         </div>
     </div>

@@ -25,14 +25,14 @@ export class UserComponent implements OnInit {
   user: UserDTO;
   compteurItemCarousel = 0;
   nombreItemParCarousel = 3;
-  displayRendezVous =false;
+  displayRendezVous = false;
   ngOnInit(): void {
     this.selDate = XunkCalendarModule.getToday();
     this.getUserId();
   }
   updateCurrentDate() {
-    this.timeSlots =this.timeSlotService.initTimeSlots(this.selDate);
-    this.timeSlots = this.timeSlotService.filterTimeSlots(this.rendezVousList,this.timeSlots);
+    this.timeSlots = this.timeSlotService.initTimeSlots(this.selDate);
+    this.timeSlots = this.timeSlotService.filterTimeSlots(this.rendezVousList, this.timeSlots);
   }
 
   initRendezVous(rendezVousList: RendezVousDTO[]): void {
@@ -43,14 +43,16 @@ export class UserComponent implements OnInit {
   }
   fetchUser(): void {
     this.userService.fetchUserById(this.user.id).subscribe(data => {
-      if(data.id == this.jwtDecodeService.decodeUserId()){
-          this.displayRendezVous = true;
+      if (data.id == this.jwtDecodeService.decodeUserId()) {
+        this.displayRendezVous = true;
       }
       this.user = data;
-      this.initRendezVous(this.user.rendezVous);
+      if (this.user.rendezVous) {
+        this.initRendezVous(this.user.rendezVous);
+      }
     })
   }
- 
+
   updateCarousel(): void {
     this.carouselTimeSlots = this.timeSlots.slice(this.compteurItemCarousel - this.nombreItemParCarousel, this.compteurItemCarousel);
   }
@@ -69,7 +71,7 @@ export class UserComponent implements OnInit {
     this.updateCarousel();
 
   }
-  
+
   getUserId(): void {
     this.activatedRoute.paramMap.subscribe(params => {
       let userIdFromURL = params.get('userId');
