@@ -1,3 +1,4 @@
+import { UserDTO } from './../../model/user-dto';
 import { JwtDecodeService } from './../../service/jwt-decode.service';
 import { CreateRendezVousRequestDTO } from './../../model/request/create-rendez-vous-request-dto';
 import { RendezVousService } from './../../service/rendez-vous.service';
@@ -12,7 +13,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class TimeslotComponent implements OnInit {
 
   constructor(private rendezVousService: RendezVousService, private jwtDecode: JwtDecodeService) { }
-  @Input() timeSlot: TimeSlot
+  @Input() timeSlot: TimeSlot;
+  @Input() userDTO: UserDTO
   @Output() rendezVousCreated = new EventEmitter();
   ngOnInit(): void {
   }
@@ -30,7 +32,7 @@ export class TimeslotComponent implements OnInit {
   initCreateRendezVousRequestDTO(): CreateRendezVousRequestDTO {
     let requestDTO: CreateRendezVousRequestDTO = {
       clientId: this.jwtDecode.decodeUserId(),
-      notaireId: 1,
+      notaireId: this.userDTO.id,
       dureeEnMinute: 30,
       date: this.timeSlot.dateDebut.getTime()
     };

@@ -25,7 +25,7 @@ export class UserComponent implements OnInit {
   user: UserDTO;
   compteurItemCarousel = 0;
   nombreItemParCarousel = 3;
-  displayRendezVous = false;
+  userLookingAtSelf = false;
   ngOnInit(): void {
     this.selDate = XunkCalendarModule.getToday();
     this.getUserId();
@@ -44,7 +44,7 @@ export class UserComponent implements OnInit {
   fetchUser(): void {
     this.userService.fetchUserById(this.user.id).subscribe(data => {
       if (data.id == this.jwtDecodeService.decodeUserId()) {
-        this.displayRendezVous = true;
+        this.userLookingAtSelf = true;
       }
       this.user = data;
       if (this.user.rendezVous) {

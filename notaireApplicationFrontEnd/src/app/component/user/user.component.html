@@ -13,25 +13,24 @@
             <app-fichier-document-preview class="m-3" [fichierDocument]="documents"></app-fichier-document-preview>
         </ng-container>
     </div>
-    <div class="row" *ngIf="user.rendezVous && displayRendezVous">
+    <div class="row" *ngIf="user.rendezVous && userLookingAtSelf">
         <ng-container *ngFor="let rv of user.rendezVous">
             <app-rendez-vous-preview class="m-3" [rendezVousDTO]="rv"></app-rendez-vous-preview>
         </ng-container>
 
     </div>
     <div class="row">
-        <div class="col" *ngIf="user.rendezVous">
+        <div class="col" *ngIf="user.rendezVous && !userLookingAtSelf">
             <xunk-calendar (click)="updateCurrentDate()" [selectedDate]="selDate"></xunk-calendar>
         </div>
     </div>
-    <div id="carouselExampleControls" class="row carousel slide" *ngIf="carouselTimeSlots" data-ride="carousel">
+    <div id="carouselExampleControls" class="row carousel slide" *ngIf="carouselTimeSlots && user.rendezVous && !userLookingAtSelf"  data-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <div class="container">
                     <div class="row">
                         <div class="col" *ngFor="let slot of carouselTimeSlots">
-                            <app-timeslot (rendezVousCreated)="fetchUser()" [timeSlot]="slot">
-                            </app-timeslot>
+                            <app-timeslot (rendezVousCreated)="fetchUser()" [timeSlot]="slot" [userDTO]="user"></app-timeslot>
                         </div>
                     </div>
                 </div>
