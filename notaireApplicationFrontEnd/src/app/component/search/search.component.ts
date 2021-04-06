@@ -20,7 +20,6 @@ export class SearchComponent implements OnInit {
 
   searchUsers():void{
     this.userService.search(this.userSeachQueryDTO).subscribe((data)=>{
-      console.log(data);
       this.userList = data;
     })
   }

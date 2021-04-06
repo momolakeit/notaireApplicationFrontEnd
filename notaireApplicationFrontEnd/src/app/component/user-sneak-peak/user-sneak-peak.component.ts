@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { UserDTO } from './../../model/user-dto';
 import { Component, Input, OnInit } from '@angular/core';
 
@@ -8,11 +9,14 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class UserSneakPeakComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
 
-  @Input() userDTO:UserDTO 
+  @Input() userDTO: UserDTO
   ngOnInit(): void {
+  }
+  checkOutUser():void{
+    this.router.navigate(['/user', this.userDTO.id])
   }
 
 }
