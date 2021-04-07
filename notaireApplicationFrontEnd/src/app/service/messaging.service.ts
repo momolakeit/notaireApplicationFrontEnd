@@ -20,22 +20,25 @@ export class MessagingService {
   stompClient;
   conversation: ConversationDTO;
 
-  createConversation(createConversationDTO: CreateConversationRequestDTO): Observable<ConversationDTO>{
-    return this.http.post<ConversationDTO>(`${environment.baseUrl}/conversation`,createConversationDTO)
+  createConversation(createConversationDTO: CreateConversationRequestDTO): Observable<ConversationDTO> {
+    return this.http.post<ConversationDTO>(`${environment.baseUrl}/conversation`, createConversationDTO)
   }
 
   getConversation(conversationId: number): Observable<ConversationDTO> {
     return this.http.get<ConversationDTO>(`${environment.baseUrl}/conversation/getConversation/${conversationId}`)
   }
-  initWebSocketConnection(conversationId:number): Observable<ConversationDTO> {
+  initMessageWebSocketConnection(conversationId: number): Observable<ConversationDTO> {
+    return this.initWebSocketConnection(conversationId, "/addMessage", "/conversation/")
+  }
+  initWebSocketConnection(conversationId: number, entryPoint: string, subscriptionEndpoint: string): Observable<ConversationDTO> {
     const locations = new Observable<ConversationDTO>((observer) => {
-      const ws = new SockJS(environment.baseUrl + "/addMessage");
+      const ws = new SockJS(environment.baseUrl + entryPoint);
       this.stompClient = Stomp.over(ws);
       const that = this;
       this.stompClient.connect({ Authorization: "Bearer " + localStorage.getItem('token') },
         function (frame) {
           console.log(frame)
-          that.subscribe(that, observer,conversationId)
+          that.subscribe(that, observer, conversationId, subscriptionEndpoint)
         },
         function (error) {
           observer.error("erreur lors de la connection au serveur");
@@ -46,14 +49,17 @@ export class MessagingService {
     });
     return locations;
   }
-  subscribe(that: any, observer: Observer<ConversationDTO>,conversationId:number) {
-    that.stompClient.subscribe("/conversation/"+conversationId, (data) => {
+  subscribe(that: any, observer: Observer<ConversationDTO>, conversationId: number, subscriptionEndpoint: string) {
+    that.stompClient.subscribe(subscriptionEndpoint + conversationId, (data) => {
       that.conversation = JSON.parse(new TextDecoder().decode(data._binaryBody));
       observer.next(that.conversation);
     })
   }
-  sendMessage(messageValue: string, user: UserDTO,conversationId:number) {
+  sendMessage(messageValue: string, user: UserDTO, conversationId: number) {
     var message: MessagesDTO = { id: null, user: user, conversation: null, message: messageValue }
-    this.stompClient.send('/app/addMessage/'+conversationId, null, JSON.stringify(message))
+    this.send('/app/addMessage/' + conversationId, JSON.stringify(message));
+  }
+  send(url: string, payload: string) {
+    this.stompClient.send(url, null, payload);
   }
 }

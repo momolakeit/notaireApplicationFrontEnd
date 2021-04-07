@@ -27,7 +27,8 @@ import { FichierDocumentComponent } from './component/fichier-document/fichier-d
 import { ConversationComponent } from './component/conversation/conversation.component';
 import { MessageComponent } from './component/message/message.component';
 import { RendezVousPreviewComponent } from './component/rendez-vous-preview/rendez-vous-preview.component';
-import { RendezVousComponent } from './component/rendez-vous/rendez-vous.component'
+import { RendezVousComponent } from './component/rendez-vous/rendez-vous.component';
+import { VideoCallComponent } from './component/video-call/video-call.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,6 +44,7 @@ import { RendezVousComponent } from './component/rendez-vous/rendez-vous.compone
     MessageComponent,
     RendezVousPreviewComponent,
     RendezVousComponent,
+    VideoCallComponent,
   ],
   imports: [
     BrowserModule,

@@ -7,6 +7,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MessageComponent } from './component/message/message.component';
 import { RendezVousComponent } from './component/rendez-vous/rendez-vous.component';
+import { VideoCallComponent } from './component/video-call/video-call.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/auth', pathMatch: 'full' },
@@ -16,7 +17,8 @@ const routes: Routes = [
   { path: 'fichierDocument/:fichierDocumentId', component: FichierDocumentComponent },
   { path: 'conversation/:conversationId', component: ConversationComponent },
   { path: 'message', component: MessageComponent },
-  { path: 'rendezVous/:rendezVousId', component: RendezVousComponent }
+  { path: 'rendezVous/:rendezVousId', component: RendezVousComponent },
+  { path: 'video', component: VideoCallComponent }
 ];
 
 @NgModule({
