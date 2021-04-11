@@ -3,7 +3,7 @@ import { UserDTO } from './../../model/user-dto';
 import { JwtDecodeService } from './../../service/jwt-decode.service';
 import { ConversationDTO } from './../../model/conversation-dto';
 import { MessagingService } from './../../service/messaging.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-conversation',
@@ -13,7 +13,7 @@ import { Component, OnInit } from '@angular/core';
 export class ConversationComponent implements OnInit {
 
   constructor(private messagingService: MessagingService, private jwtDecodeService: JwtDecodeService, private activatedRoute: ActivatedRoute) { }
-  conversationDTO: ConversationDTO;
+  @Input() conversationDTO: ConversationDTO;
   message: string;
 
   ngOnInit(): void {
@@ -21,19 +21,14 @@ export class ConversationComponent implements OnInit {
   }
 
   initConversation() {
-    this.activatedRoute.paramMap.subscribe(params => {
-      let conversationId = params.get("conversationId");
-      this.messagingService.getConversation(parseInt(conversationId)).subscribe(data => {
+    this.messagingService.initMessageWebSocketConnection(this.conversationDTO.id).subscribe(
+      (data) => {
         this.conversationDTO = data;
-        this.messagingService.initMessageWebSocketConnection(data.id).subscribe(
-          (data) => {
-            this.conversationDTO = data;
-          },
-          (error) => {
-            console.log(error);
-          })
-      })
-    })
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
   }
 
   sendMessage() {

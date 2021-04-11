@@ -38,11 +38,11 @@ export class RendezVousComponent implements OnInit {
     let requestDTO: CreateConversationRequestDTO = { conversationDTO: conversation, messagesDTO: null, rendezVousDTO: this.rendezVous }
     this.messaging.createConversation(requestDTO).subscribe(data => {
       console.log(data);
-      this.router.navigate(['/conversation', data.id])
+      this.router.navigate(['/meeting', data.id])
     })
   }
   joinConversation(): void {
-    this.router.navigate(['/conversation', this.rendezVous.conversation.id])
+    this.router.navigate(['/meeting', this.rendezVous.conversation.id])
   }
 
 }

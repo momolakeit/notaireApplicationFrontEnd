@@ -1,3 +1,4 @@
+import { MeetingComponent } from './component/meeting/meeting.component';
 import { RendezVousPreviewComponent } from './component/rendez-vous-preview/rendez-vous-preview.component';
 import { ConversationComponent } from './component/conversation/conversation.component';
 import { FichierDocumentComponent } from './component/fichier-document/fichier-document.component';
@@ -15,10 +16,11 @@ const routes: Routes = [
   { path: 'user/:userId', component: UserComponent },
   { path: 'user', component: UserComponent },
   { path: 'fichierDocument/:fichierDocumentId', component: FichierDocumentComponent },
-  { path: 'conversation/:conversationId', component: ConversationComponent },
+  { path: 'conversation', component: ConversationComponent },
   { path: 'message', component: MessageComponent },
   { path: 'rendezVous/:rendezVousId', component: RendezVousComponent },
-  { path: 'video', component: VideoCallComponent }
+  { path: 'video', component: VideoCallComponent },
+  { path: 'meeting/:conversationId', component: MeetingComponent }
 ];
 
 @NgModule({

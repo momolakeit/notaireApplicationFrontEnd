@@ -28,7 +28,8 @@ import { ConversationComponent } from './component/conversation/conversation.com
 import { MessageComponent } from './component/message/message.component';
 import { RendezVousPreviewComponent } from './component/rendez-vous-preview/rendez-vous-preview.component';
 import { RendezVousComponent } from './component/rendez-vous/rendez-vous.component';
-import { VideoCallComponent } from './component/video-call/video-call.component'
+import { VideoCallComponent } from './component/video-call/video-call.component';
+import { MeetingComponent } from './component/meeting/meeting.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,6 +46,7 @@ import { VideoCallComponent } from './component/video-call/video-call.component'
     RendezVousPreviewComponent,
     RendezVousComponent,
     VideoCallComponent,
+    MeetingComponent,
   ],
   imports: [
     BrowserModule,
