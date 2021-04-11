@@ -43,6 +43,7 @@ export class UserComponent implements OnInit {
   }
   fetchUser(): void {
     this.userService.fetchUserById(this.user.id).subscribe(data => {
+      console.log(data);
       if (data.id == this.jwtDecodeService.decodeUserId()) {
         this.userLookingAtSelf = true;
       }

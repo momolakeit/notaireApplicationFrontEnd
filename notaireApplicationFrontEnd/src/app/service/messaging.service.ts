@@ -18,7 +18,7 @@ export class MessagingService {
 
   constructor(private http: HttpClient) { }
   stompClient;
-  conversation: ConversationDTO;
+  returnObject: any;
 
   createConversation(createConversationDTO: CreateConversationRequestDTO): Observable<ConversationDTO> {
     return this.http.post<ConversationDTO>(`${environment.baseUrl}/conversation`, createConversationDTO)
@@ -35,6 +35,9 @@ export class MessagingService {
   }
   initAnswerWebSocketConnection(userId: number): Observable<any> {
     return this.initWebSocketConnection(userId, "/respond", "/answerCall/")
+  }
+  initReponseIceCandidate(userId: number): Observable<any> {
+    return this.initWebSocketConnection(userId, "/sendIceCandidate", "/receiveIceCandidate/")
   }
   initWebSocketConnection(idToListenOn: number, entryPoint: string, subscriptionEndpoint: string): Observable<any> {
     const locations = new Observable<any>((observer) => {
@@ -58,8 +61,8 @@ export class MessagingService {
   }
   subscribe(that: any, observer: Observer<any>, conversationId: number, subscriptionEndpoint: string) {
     that.stompClient.subscribe(subscriptionEndpoint + conversationId, (data) => {
-      that.conversation = JSON.parse(new TextDecoder().decode(data._binaryBody));
-      observer.next(that.conversation);
+      that.returnObject = JSON.parse(new TextDecoder().decode(data._binaryBody));
+      observer.next(that.returnObject);
     })
   }
   sendMessage(messageValue: string, user: UserDTO, conversationId: number) {
@@ -68,6 +71,12 @@ export class MessagingService {
   }
   callUser(userId:number,offre:any){
     this.send('/app/call/'+userId,JSON.stringify(offre));
+  }
+  answerCall(userId:number,answer:any){
+    this.send('/app/respond/'+userId,JSON.stringify(answer));
+  }
+  sendIceCandidate(userId:number,answer:any){
+    this.send('/app/sendIceCandidate/'+userId,JSON.stringify(answer));
   }
   
   send(url: string, payload: string) {
