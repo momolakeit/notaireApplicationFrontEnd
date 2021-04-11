@@ -11,7 +11,6 @@ const { RTCPeerConnection, RTCSessionDescription } = window;
 export class VideoCallComponent implements OnInit {
 
   constructor(private messagingService: MessagingService, private jwtDecodeService: JwtDecodeService) { }
-  configuration = {'iceServers': [{'urls': 'stun:stun.l.google.com:19302'}]}
   peerConnection = new RTCPeerConnection()
 
   ngOnInit(): void {
@@ -23,19 +22,11 @@ export class VideoCallComponent implements OnInit {
     this.messagingService.initAnswerWebSocketConnection(this.jwtDecodeService.decodeUserId()).subscribe(data => {
       this.answerUser(data);
     });
-    this.peerConnection.addEventListener('icecandidate', event => {
-      console.log("ice candidate")
-      if (event.candidate) {
-        console.log(event.candidate)
-        this.messagingService.sendIceCandidate(this.jwtDecodeService.decodeUserId() == 1 ? 2 : 1,event.candidate)
-      }
-    })
-    this.messagingService.initReponseIceCandidate(this.jwtDecodeService.decodeUserId()).subscribe(data=>{
+    this.listenOnIceCandidateEvent();
+    this.messagingService.initReponseIceCandidate(this.jwtDecodeService.decodeUserId()).subscribe(data => {
       this.peerConnection.addIceCandidate(JSON.parse(data));
-      console.log("ice candidate received")
-      console.log(this.peerConnection.connectionState);
     });
-    
+
   }
   initLocalVideo(): void {
     navigator.getUserMedia(
@@ -73,5 +64,14 @@ export class VideoCallComponent implements OnInit {
         remoteVideo.srcObject = stream;
       }
     };
+  }
+  listenOnIceCandidateEvent(): void {
+    this.peerConnection.addEventListener('icecandidate', event => {
+      console.log("ice candidate")
+      if (event.candidate) {
+        console.log(event.candidate)
+        this.messagingService.sendIceCandidate(this.jwtDecodeService.decodeUserId() == 1 ? 2 : 1, event.candidate)
+      }
+    })
   }
 }
