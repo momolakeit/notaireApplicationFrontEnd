@@ -1,6 +1,8 @@
+import { UserDTO } from './../../model/user-dto';
+import { ConversationDTO } from './../../model/conversation-dto';
 import { JwtDecodeService } from './../../service/jwt-decode.service';
 import { MessagingService } from './../../service/messaging.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 const { RTCPeerConnection, RTCSessionDescription } = window;
 
 @Component({
@@ -12,11 +14,12 @@ export class VideoCallComponent implements OnInit {
 
   constructor(private messagingService: MessagingService, private jwtDecodeService: JwtDecodeService) { }
   peerConnection = new RTCPeerConnection()
+  @Input() conversationDTO: ConversationDTO;
 
   ngOnInit(): void {
     this.initLocalVideo();
     this.streamRemoteVideo();
-    this.messagingService.initCallUserWebSocketConnection(this.jwtDecodeService.decodeUserId() == 1 ? 2 : 1).subscribe(data => {
+    this.messagingService.initCallUserWebSocketConnection( this.getOtherUserId()).subscribe(data => {
       this.establishConnection(data);
     });
     this.messagingService.initAnswerWebSocketConnection(this.jwtDecodeService.decodeUserId()).subscribe(data => {
@@ -73,5 +76,10 @@ export class VideoCallComponent implements OnInit {
         this.messagingService.sendIceCandidate(this.jwtDecodeService.decodeUserId() == 1 ? 2 : 1, event.candidate)
       }
     })
+  }
+  getOtherUserId():number{
+    let otherUser : UserDTO
+    otherUser =this.conversationDTO.users.filter(user=>user.id != this.jwtDecodeService.decodeUserId())[0]
+    return otherUser.id;
   }
 }

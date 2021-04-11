@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row" *ngIf="conversationDTO">
         <div class="col">
-            <app-video-call></app-video-call>            
+            <app-video-call [conversationDTO]="conversationDTO"></app-video-call>            
         </div>
         <div class="col">
             <app-conversation [conversationDTO]="conversationDTO"></app-conversation>            
