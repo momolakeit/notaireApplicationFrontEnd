@@ -1,4 +1,5 @@
 export interface CreateFichierDocumentRequestDTO {
-    notaireId:number;
-    clientId:number;
+    notaireId: number;
+    clientId: number;
+    rendezVousId: number;
 }

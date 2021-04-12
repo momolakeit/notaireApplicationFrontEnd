@@ -1,3 +1,4 @@
+import { FichierDocumentDTO } from './fichier-document-dto';
 import { ConversationDTO } from './conversation-dto';
 import { UserDTO } from "./user-dto";
 
@@ -8,4 +9,5 @@ export interface RendezVousDTO {
     dureeEnMinute:number;
     users:[UserDTO]
     conversation : ConversationDTO
+    fichierDocument : FichierDocumentDTO
 }

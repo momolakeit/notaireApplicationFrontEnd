@@ -1,6 +1,8 @@
+import { JwtDecodeService } from './../../service/jwt-decode.service';
+import { RendezVousDTO } from './../../model/rendez-vous-dto';
 import { FichierDocumentService } from './../../service/fichier-document.service';
 import { CreateFichierDocumentRequestDTO } from './../../model/request/create-fichier-document-request-dto';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
@@ -11,28 +13,33 @@ import { environment } from 'src/environments/environment';
 })
 export class UploadDocumentComponent implements OnInit {
 
-  constructor(private fichierDocumentService:FichierDocumentService,private http:HttpClient) { }
+  constructor(private fichierDocumentService: FichierDocumentService, private jwtDecodeService: JwtDecodeService) { }
 
   @Output() fichierDocumentCreated = new EventEmitter();
 
+  @Input() rendezVousDTO: RendezVousDTO
+
   ngOnInit(): void {
   }
-  onFileSelected(event){
-    var dto=this.createFichierDocumentRequestDTO();
-    const file= event.target.files[0];
-    if(file){
+  onFileSelected(event) {
+    var dto = this.createFichierDocumentRequestDTO();
+    const file = event.target.files[0];
+    if (file) {
       const formData = new FormData();
-      formData.append('file',file)
-      this.fichierDocumentService.createFichierDocument(dto).subscribe(data=>{
-          this.fichierDocumentService.uploadFichierDocument(formData,data.id).subscribe(()=>{
-            this.fichierDocumentCreated.emit();
-          });
+      formData.append('file', file)
+      this.fichierDocumentService.createFichierDocument(dto).subscribe(data => {
+        this.fichierDocumentService.uploadFichierDocument(formData, data.id).subscribe(() => {
+          this.fichierDocumentCreated.emit();
+        });
       })
     }
   }
-  createFichierDocumentRequestDTO():CreateFichierDocumentRequestDTO{
+  createFichierDocumentRequestDTO(): CreateFichierDocumentRequestDTO {
     //todo a modifier
-    var createFichierDocumentRequestDTO:CreateFichierDocumentRequestDTO={notaireId:1,clientId:2}
+    let clientId = this.jwtDecodeService.decodeUserId();
+    console.log(this.rendezVousDTO)
+    let notaireId = this.rendezVousDTO.users.filter(user => user.id != clientId)[0].id;
+    var createFichierDocumentRequestDTO: CreateFichierDocumentRequestDTO = { notaireId: notaireId, clientId: clientId, rendezVousId: this.rendezVousDTO.id }
     return createFichierDocumentRequestDTO;
   }
 

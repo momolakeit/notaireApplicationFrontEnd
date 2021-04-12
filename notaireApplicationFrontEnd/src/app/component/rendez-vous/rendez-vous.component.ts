@@ -22,11 +22,7 @@ export class RendezVousComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(params => {
       let id = params.get("rendezVousId");
-      this.rendezVousService.fetchRendezVousById(parseInt(id)).subscribe(data => {
-        this.rendezVous = data
-        this.initDates();
-      });
-
+      this.fetchRendezVous(parseInt(id));
     })
   }
   initDates(): void {
@@ -43,6 +39,15 @@ export class RendezVousComponent implements OnInit {
   }
   joinConversation(): void {
     this.router.navigate(['/meeting', this.rendezVous.conversation.id])
+  }
+  refreshRendezVous(){
+    this.fetchRendezVous(this.rendezVous.id);
+  }
+  fetchRendezVous(id:number):void{
+    this.rendezVousService.fetchRendezVousById(id).subscribe(data => {
+      this.rendezVous = data
+      this.initDates();
+    });
   }
 
 }

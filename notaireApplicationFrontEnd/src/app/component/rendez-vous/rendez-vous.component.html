@@ -16,9 +16,15 @@
                 </div>
                 <div class="row">
                     <div class="col mt-5">
-                        <button *ngIf="!rendezVous.conversation" (click)="startConversation()" style="background-color:#7B1FA2; color: white;" mat-button>Start conversation</button>
-                        <button *ngIf="rendezVous.conversation" (click)="joinConversation()" style="background-color:#7B1FA2; color: white;" mat-button>Join conversation</button>
+                        <button *ngIf="!rendezVous.conversation" (click)="startConversation()"
+                            style="background-color:#7B1FA2; color: white;" mat-button>Start conversation</button>
+                        <button *ngIf="rendezVous.conversation" (click)="joinConversation()"
+                            style="background-color:#7B1FA2; color: white;" mat-button>Join conversation</button>
                     </div>
+                </div>
+                <div class="row mt-5" *ngIf="rendezVous">
+                    <app-upload-document *ngIf="!rendezVous.fichierDocument" [rendezVousDTO]="rendezVous" (fichierDocumentCreated)="refreshRendezVous()" ></app-upload-document>
+                    <app-fichier-document-preview *ngIf="rendezVous.fichierDocument" [fichierDocument]="rendezVous.fichierDocument"></app-fichier-document-preview>
                 </div>
             </div>
         </div>
