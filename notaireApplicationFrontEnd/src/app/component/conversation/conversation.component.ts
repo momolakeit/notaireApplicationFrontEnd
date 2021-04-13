@@ -21,6 +21,7 @@ export class ConversationComponent implements OnInit {
   }
 
   initConversation() {
+    console.log(this.conversationDTO)
     this.messagingService.initMessageWebSocketConnection(this.conversationDTO.id).subscribe(
       (data) => {
         this.conversationDTO = data;
