@@ -1,11 +1,25 @@
 <form>
-       <div>
-              <label>
-                     Choose file
-                     <span class="material-icons">
-                            file_present
-                     </span>
-                     <input type="file" style="opacity: 0;" name="profile" (change)="onFileSelected($event)" />
-              </label>
+       <div class="container">
+              <div class="row">
+                     <div class="col">
+                            <mat-form-field class="example-full-width">
+                                   <mat-label>Description du document</mat-label>
+                                   <input name="description" [(ngModel)]="description" type="text" matInput>
+                            </mat-form-field>
+                     </div>
+                     <div class="col">
+                            <label>
+                                   Choose file
+                                   <span class="material-icons">
+                                          file_present
+                                   </span>
+                                   <input type="file" style="opacity: 0;" name="profile" (change)="setEvent($event)" />
+                            </label>
+                     </div>
+              </div>
+              <div class="row">
+                     <button (click)="sendDocument()" style="background-color:#7B1FA2;" class="w-100" mat-button>Upload
+                            document</button>
+              </div>
        </div>
 </form>

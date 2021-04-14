@@ -19,11 +19,16 @@ export class UploadDocumentComponent implements OnInit {
 
   @Input() rendezVousDTO: RendezVousDTO
 
+  description: string;
+  event: any;
   ngOnInit(): void {
   }
-  onFileSelected(event) {
+  setEvent(event) {
+    this.event = event;
+  }
+  sendDocument() {
     var dto = this.createFichierDocumentRequestDTO();
-    const file = event.target.files[0];
+    const file = this.event.target.files[0];
     if (file) {
       const formData = new FormData();
       formData.append('file', file)
@@ -39,7 +44,7 @@ export class UploadDocumentComponent implements OnInit {
     let clientId = this.jwtDecodeService.decodeUserId();
     console.log(this.rendezVousDTO)
     let notaireId = this.rendezVousDTO.users.filter(user => user.id != clientId)[0].id;
-    var createFichierDocumentRequestDTO: CreateFichierDocumentRequestDTO = { notaireId: notaireId, clientId: clientId, rendezVousId: this.rendezVousDTO.id }
+    var createFichierDocumentRequestDTO: CreateFichierDocumentRequestDTO = { notaireId: notaireId, clientId: clientId, rendezVousId: this.rendezVousDTO.id, description: "" }
     return createFichierDocumentRequestDTO;
   }
 
