@@ -1,3 +1,4 @@
+import { SignDocumentDTO } from './../model/request/sign-document-dto';
 import { CreateFichierDocumentRequestDTO } from './../model/request/create-fichier-document-request-dto';
 import { FichierDocumentDTO } from './../model/fichier-document-dto';
 import { Observable } from 'rxjs';
@@ -12,6 +13,9 @@ import { environment } from 'src/environments/environment';
 export class FichierDocumentService {
 
   constructor(private http:HttpClient) { }
+  signDocument(dto:SignDocumentDTO):Observable<Object>{
+    return this.http.post<Object>(`${environment.baseUrl}/fichierDocument/sign/`,dto);
+  }
   uploadFichierDocument(file:FormData,fichierDocumentId:Number):Observable<Object>{
     return this.http.post<Object>(`${environment.baseUrl}/fichierDocument/upload/${fichierDocumentId}`,file)
   }

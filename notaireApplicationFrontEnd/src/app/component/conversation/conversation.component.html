@@ -17,6 +17,15 @@
         </div>
     </div>
     <div class="row mt-4">
-        <app-fichier-document-preview *ngIf="conversationDTO.fichierDocument" [fichierDocument]="conversationDTO.fichierDocument"></app-fichier-document-preview>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <app-fichier-document-preview *ngIf="conversationDTO.fichierDocument" [fichierDocument]="conversationDTO.fichierDocument"></app-fichier-document-preview>
+                </div>
+                <div class="col">
+                    <button  (click)="signDocument()" style="background-color:#7B1FA2;" mat-button>Sign Document</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

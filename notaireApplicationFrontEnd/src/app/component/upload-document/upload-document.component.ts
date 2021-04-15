@@ -44,7 +44,7 @@ export class UploadDocumentComponent implements OnInit {
     let clientId = this.jwtDecodeService.decodeUserId();
     console.log(this.rendezVousDTO)
     let notaireId = this.rendezVousDTO.users.filter(user => user.id != clientId)[0].id;
-    var createFichierDocumentRequestDTO: CreateFichierDocumentRequestDTO = { notaireId: notaireId, clientId: clientId, rendezVousId: this.rendezVousDTO.id, description: "" }
+    var createFichierDocumentRequestDTO: CreateFichierDocumentRequestDTO = { notaireId: notaireId, clientId: clientId, rendezVousId: this.rendezVousDTO.id, description: this.description }
     return createFichierDocumentRequestDTO;
   }
 

@@ -14,9 +14,7 @@ export class FichierDocumentComponent implements OnInit {
   blob:Blob;
   ngOnInit(): void {
     pdfDefaultOptions.assetsFolder = 'assets';
-    this.fichierDocumentService.getFichierDocumentData(1).subscribe(data =>{// change id
-      this.blob = data;
-    });
+    this.getDocumentIdFromUrl();
   } 
   fetchDocumentData(id:number){
     this.fichierDocumentService.getFichierDocumentData(id).subscribe(data =>{// change id
