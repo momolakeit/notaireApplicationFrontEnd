@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { SignUpDTO } from './../../model/request/sign-up-dto';
 import { LogInDTO } from './../../model/request/log-in-dto';
 import { AuthService } from './../../service/auth.service';
@@ -10,9 +11,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService,private router:Router) { }
   loginDTO: LogInDTO = { emailAdress: "", password: "" };
-  signUpDto: SignUpDTO = { emailAdress: "", password: "", nom: "", prenom: "", role: "client" }
+  signUpDto: SignUpDTO = { emailAdress: "", password: "", nom: "", prenom: "", role: "" }
   isSignUp = false;
   validationErrorMessage: string;
   showValidationErrorMessage: boolean;
@@ -24,6 +25,7 @@ export class AuthComponent implements OnInit {
     this.authService.logIn(this.loginDTO).subscribe(
       (jwtReponse) => {
         this.authService.setToken(jwtReponse);
+        this.redirectToUserPage();
       },
       (error) => {
         switch (error.status) {
@@ -39,10 +41,11 @@ export class AuthComponent implements OnInit {
   signUp(): void {
     this.authService.signUp(this.signUpDto).subscribe(
       (jwtReponse) => {
-            this.loginDTO = this.authService.signUpToLogIn(this.signUpDto);
-            this.authService.setToken(jwtReponse);
+        this.loginDTO = this.authService.signUpToLogIn(this.signUpDto);
+        this.authService.setToken(jwtReponse);
+        this.redirectToUserPage();
       },
-      (error)=>{
+      (error) => {
         switch (error.status) {
           case 400:
             this.changeValidationStringError(error.error);
@@ -58,5 +61,8 @@ export class AuthComponent implements OnInit {
   }
   setIsSignUp(value: boolean): void {
     this.isSignUp = value;
+  }
+  redirectToUserPage(){
+    this.router.navigate(['/user'])
   }
 }
