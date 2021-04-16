@@ -1,22 +1,31 @@
+<mat-card class="mt-5">
 <div class="container">
     <div class="row">
-        <div class="col">
-            {{user.prenom}}
-        </div>
-        <div class="col">
-            {{user.nom}}
-        </div>
+            <h1 class="mr-2">{{user.prenom}}</h1>     <h1>{{user.nom}}</h1>
     </div>
     <div class="row" *ngIf="user.fichierDocuments">
-        <ng-container *ngFor="let documents of user.fichierDocuments">
-            <app-fichier-document-preview class="m-3" [fichierDocument]="documents"></app-fichier-document-preview>
-        </ng-container>
+        <div class="container">
+            <div class="row">
+                <h2 class="ml-3">Mes documents</h2>                
+            </div>
+            <div class="row">
+                <ng-container *ngFor="let documents of user.fichierDocuments">
+                    <app-fichier-document-preview class="m-3" [fichierDocument]="documents"></app-fichier-document-preview>
+                </ng-container>                
+            </div>
+        </div>
     </div>
     <div class="row" *ngIf="user.rendezVous && userLookingAtSelf">
-        <ng-container *ngFor="let rv of user.rendezVous">
-            <app-rendez-vous-preview class="m-3" [rendezVousDTO]="rv"></app-rendez-vous-preview>
-        </ng-container>
-
+        <div class="container">
+            <div class="row">
+                <h2 class="ml-3">Mes rendez vous</h2>
+            </div>
+            <div class="row">
+                <ng-container *ngFor="let rv of user.rendezVous">
+                    <app-rendez-vous-preview class="m-3" [rendezVousDTO]="rv"></app-rendez-vous-preview>
+                </ng-container>
+            </div>
+        </div>
     </div>
     <div class="row">
         <div class="col" *ngIf="user.rendezVous && !userLookingAtSelf">
@@ -46,3 +55,4 @@
         </div>
     </div>
 </div>
+</mat-card>
