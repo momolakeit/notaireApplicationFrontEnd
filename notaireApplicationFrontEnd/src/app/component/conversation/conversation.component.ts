@@ -34,7 +34,6 @@ export class ConversationComponent implements OnInit {
     )
   }
   signDocument(): void {
-    console.log(this.conversationDTO.fichierDocument.id);
     var signDTO: SignDocumentDTO = { documentId: this.conversationDTO.fichierDocument.id, location: "Montreal" }
     this.fichierDocumentService.signDocument(signDTO).subscribe(data =>console.log("on ma pas ramener a graille"))
   }
