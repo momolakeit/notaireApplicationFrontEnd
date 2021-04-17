@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" style="height: 500px;">
     <ng-container *ngIf="conversationDTO">
         <div class="row" *ngFor="let mess of conversationDTO.messages">
             <div class="col">
@@ -14,18 +14,6 @@
         </div>
         <div class="col mt-2">
             <button (click)="sendMessage()" style="background-color:#7B1FA2; color: white;" mat-button>Send Message</button>
-        </div>
-    </div>
-    <div class="row mt-4">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <app-fichier-document-preview *ngIf="conversationDTO.fichierDocument" [fichierDocument]="conversationDTO.fichierDocument"></app-fichier-document-preview>
-                </div>
-                <div class="col">
-                    <button  (click)="signDocument()" style="background-color:#7B1FA2;" mat-button>Sign Document</button>
-                </div>
-            </div>
         </div>
     </div>
 </div>

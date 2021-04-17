@@ -30,7 +30,8 @@ import { MessageComponent } from './component/message/message.component';
 import { RendezVousPreviewComponent } from './component/rendez-vous-preview/rendez-vous-preview.component';
 import { RendezVousComponent } from './component/rendez-vous/rendez-vous.component';
 import { VideoCallComponent } from './component/video-call/video-call.component';
-import { MeetingComponent } from './component/meeting/meeting.component'
+import { MeetingComponent } from './component/meeting/meeting.component';
+import { SignDocumentComponent } from './component/sign-document/sign-document.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,6 +49,7 @@ import { MeetingComponent } from './component/meeting/meeting.component'
     RendezVousComponent,
     VideoCallComponent,
     MeetingComponent,
+    SignDocumentComponent,
   ],
   imports: [
     BrowserModule,

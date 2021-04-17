@@ -1,10 +1,13 @@
 <div class="container">
     <div class="row" *ngIf="conversationDTO">
-        <div class="col">
-            <app-video-call [conversationDTO]="conversationDTO"></app-video-call>            
-        </div>
-        <div class="col">
-            <app-conversation [conversationDTO]="conversationDTO"></app-conversation>            
-        </div>
+        <mat-card class="col" >
+            <app-video-call [conversationDTO]="conversationDTO"></app-video-call>
+        </mat-card>
+        <mat-card class="col" >
+            <app-conversation class="convo" style="height: 500px;"  [conversationDTO]="conversationDTO"></app-conversation>
+            <div class="mt-5">
+                <app-sign-document  style="height: 500px;" [fichierDocument]="conversationDTO.fichierDocument"></app-sign-document>    
+            </div>
+        </mat-card>
     </div>
 </div>

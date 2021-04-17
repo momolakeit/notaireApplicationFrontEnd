@@ -1,7 +1,10 @@
-<mat-card class="example-card mx-auto mt-5 w-50" >
+<mat-card class="example-card mx-auto mt-5" style="width: 35%;" >
     <mat-card-header>
         <div class="mx-auto mt-5">
-            <mat-card-title>Log in</mat-card-title>
+            <mat-card-title>
+                <h1 *ngIf="!isSignUp">Log In</h1>
+                <h1 *ngIf="isSignUp">Sign up</h1>
+            </mat-card-title>
         </div>
     </mat-card-header>
     <mat-card-content>
@@ -9,7 +12,7 @@
             <div class="container" *ngIf="!isSignUp">
                 <div class="row justify-content-center">
                     <div class="col-4 ">
-                        <mat-form-field class="example-full-width">
+                        <mat-form-field class="example-full-width w-100">
                             <mat-label>Username</mat-label>
                             <input name="emailAdress" [(ngModel)]="loginDTO.emailAdress" matInput>
                         </mat-form-field>
@@ -17,7 +20,7 @@
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-4">
-                        <mat-form-field class="example-full-width">
+                        <mat-form-field class="example-full-width w-100">
                             <mat-label>Password</mat-label>
                             <input name="password" [(ngModel)]="loginDTO.password" type="password" matInput>
                         </mat-form-field>
@@ -32,7 +35,7 @@
             <div class="container" *ngIf="isSignUp">
                 <div class="row justify-content-center">
                     <div class="col-4">
-                        <mat-form-field class="example-full-width">
+                        <mat-form-field class="example-full-width w-100">
                             <mat-label>Prenom</mat-label>
                             <input name="emailAdress" [(ngModel)]="signUpDto.prenom" matInput>
                         </mat-form-field>
@@ -40,7 +43,7 @@
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-4">
-                        <mat-form-field class="example-full-width">
+                        <mat-form-field class="example-full-width w-100">
                             <mat-label>Nom</mat-label>
                             <input name="emailAdress" [(ngModel)]="signUpDto.nom" matInput>
                         </mat-form-field>
@@ -48,7 +51,7 @@
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-4">
-                        <mat-form-field class="example-full-width">
+                        <mat-form-field class="example-full-width w-100">
                             <mat-label>Username</mat-label>
                             <input name="emailAdress" [(ngModel)]="signUpDto.emailAdress" matInput>
                         </mat-form-field>
@@ -56,7 +59,7 @@
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-4">
-                        <mat-form-field class="example-full-width">
+                        <mat-form-field class="example-full-width w-100">
                             <mat-label>Password</mat-label>
                             <input name="password" [(ngModel)]="signUpDto.password" type="password" matInput>
                         </mat-form-field>
@@ -66,7 +69,7 @@
                     <div class="col-4">
                         <mat-label>Choisir son role</mat-label>
                         <mat-radio-group [(ngModel)]="signUpDto.role" name="role" aria-label="Select an option">
-                            <div class="container">
+                            <div class="container mt-3">
                                 <div class="row">
                                     <mat-radio-button value="Client">Client</mat-radio-button>
                                 </div>
@@ -89,11 +92,11 @@
     </div>
     <mat-card-actions>
         <div class="container">
-            <div class="row">
-                <div class="col-4 ml-4">
-                    <button *ngIf="!isSignUp" (click)="logIn()" style="background-color:#7B1FA2;" mat-button>LOG
+            <div class="row justify-content-center">
+                <div class="col-4" >
+                    <button *ngIf="!isSignUp" (click)="logIn()" class="w-100" style="background-color:#7B1FA2;" mat-button>LOG
                         IN</button>
-                    <button *ngIf="isSignUp" (click)="signUp()" style="background-color:#7B1FA2;" mat-button>SIGN
+                    <button *ngIf="isSignUp" (click)="signUp()" class="w-100" style="background-color:#7B1FA2;" mat-button>SIGN
                         UP</button>
                 </div>
             </div>
