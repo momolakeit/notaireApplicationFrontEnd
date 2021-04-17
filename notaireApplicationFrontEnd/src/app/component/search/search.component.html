@@ -3,7 +3,7 @@
         Search
         <mat-icon>search</mat-icon>
     </mat-label>
-    <input [ngModel]="userSeachQueryDTO.query" (keyup)="searchUsers()" [matAutocomplete]="auto" name="query" matInput placeholder="Search">
+    <input [(ngModel)]="userSeachQueryDTO.query" (keyup)="searchUsers()" [matAutocomplete]="auto" name="query" matInput placeholder="Search">
 </mat-form-field>
 
 <mat-autocomplete (keyup)="searchUsers()" #auto="matAutocomplete">

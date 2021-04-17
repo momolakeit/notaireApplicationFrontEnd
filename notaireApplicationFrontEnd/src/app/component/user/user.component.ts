@@ -26,6 +26,8 @@ export class UserComponent implements OnInit {
   compteurItemCarousel = 0;
   nombreItemParCarousel = 3;
   userLookingAtSelf = false;
+  hasDocument = false;
+  hasRendezVous = false;
   ngOnInit(): void {
     this.selDate = XunkCalendarModule.getToday();
     this.getUserId();
@@ -46,6 +48,12 @@ export class UserComponent implements OnInit {
       console.log(data);
       if (data.id == this.jwtDecodeService.decodeUserId()) {
         this.userLookingAtSelf = true;
+      }
+      if (data.fichierDocuments && data.fichierDocuments.length > 0) {
+        this.hasDocument = true;
+      }
+      if (data.rendezVous && data.rendezVous.length > 0) {
+        this.hasRendezVous = true;
       }
       this.user = data;
       if (this.user.rendezVous) {

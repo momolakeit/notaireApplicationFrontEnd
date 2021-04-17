@@ -9,8 +9,11 @@
         </div>
         <div class="row" *ngIf="user.fichierDocuments">
             <div class="container">
-                <div class="row">
+                <div class="row" *ngIf="hasDocument">
                     <h2 class="ml-3">Mes documents</h2>
+                </div>
+                <div class="row" *ngIf="!hasDocument">
+                    <h2 class="ml-3">Aucun document , utilisez l'application afin d'insérer des documents</h2>
                 </div>
                 <div class="row">
                     <ng-container *ngFor="let documents of user.fichierDocuments">
@@ -22,8 +25,11 @@
         </div>
         <div class="row" *ngIf="user.rendezVous && userLookingAtSelf">
             <div class="container">
-                <div class="row">
+                <div class="row" *ngIf="hasRendezVous">
                     <h2 class="ml-3">Mes rendez vous</h2>
+                </div>
+                <div class="row" *ngIf="!hasRendezVous">
+                    <h2 class="ml-3">Aucun rendez vous , utilisez l'application afin d'insérer des documents</h2>
                 </div>
                 <div class="row">
                     <ng-container *ngFor="let rv of user.rendezVous">
