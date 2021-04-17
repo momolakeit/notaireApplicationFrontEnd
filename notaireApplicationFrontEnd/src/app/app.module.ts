@@ -32,6 +32,7 @@ import { RendezVousComponent } from './component/rendez-vous/rendez-vous.compone
 import { VideoCallComponent } from './component/video-call/video-call.component';
 import { MeetingComponent } from './component/meeting/meeting.component';
 import { SignDocumentComponent } from './component/sign-document/sign-document.component'
+import { JwtModule } from '@auth0/angular-jwt';
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,7 +67,11 @@ import { SignDocumentComponent } from './component/sign-document/sign-document.c
     FormsModule,
     MatAutocompleteModule,
     XunkCalendarModule,
-    NgxExtendedPdfViewerModule
+    NgxExtendedPdfViewerModule,
+    JwtModule.forRoot({
+      config: {
+      },
+    }),
   ],
   providers: [
     {
