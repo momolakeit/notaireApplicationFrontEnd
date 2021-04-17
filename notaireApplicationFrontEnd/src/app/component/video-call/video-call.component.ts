@@ -49,13 +49,13 @@ export class VideoCallComponent implements OnInit {
   async callUser() {
     const offer = await this.peerConnection.createOffer();
     await this.peerConnection.setLocalDescription(new RTCSessionDescription(offer));
-    this.messagingService.callUser(1, offer);
+    this.messagingService.callUser(this.getOtherUserId(), offer);
   }
   async answerUser(data) {
     await this.peerConnection.setRemoteDescription(new RTCSessionDescription(JSON.parse(data)));
     const answer = await this.peerConnection.createAnswer();
     await this.peerConnection.setLocalDescription(new RTCSessionDescription(answer));
-    this.messagingService.answerCall(1, answer);
+    this.messagingService.answerCall(this.jwtDecodeService.decodeUserId(), answer);
   }
   async establishConnection(data) {
     this.peerConnection.setRemoteDescription(new RTCSessionDescription(JSON.parse(data)))
@@ -73,7 +73,7 @@ export class VideoCallComponent implements OnInit {
       console.log("ice candidate")
       if (event.candidate) {
         console.log(event.candidate)
-        this.messagingService.sendIceCandidate(this.jwtDecodeService.decodeUserId() == 1 ? 2 : 1, event.candidate)
+        this.messagingService.sendIceCandidate(this.getOtherUserId(), event.candidate)
       }
     })
   }
